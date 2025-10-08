@@ -1,0 +1,23 @@
+site_name: 生物数据处理CookBook——以基因家族分析为例
+site_author: ZJQ
+
+nav:
+  - '前言': 'index.md'
+  - '环境配置及相关软件': 'Chapters\环境配置及相关软件.md'
+  - '文献阅读': 'Chapters\文献阅读.md'
+  - '数据处理及画图': 'Chapters\数据处理及画图.md'
+  - '编程和计算机知识的回顾': 'Chapters\编程和计算机知识的回顾.md'
+  - '小提示': 'Chapters\小提示.md'
+  - '后记': 'Chapters\后记.md'
+
+theme:
+  name: material
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - python
+    - bash
+
+extra_css:
+  - css/extra.css
+  - css/image-size.css

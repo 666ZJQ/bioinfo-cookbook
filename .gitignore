@@ -1,0 +1,13 @@
+docs/Chapters/assets/
+docs/latex-templates/
+docs/pdf/
+docs/scripts/
+docs/temp/
+docs/Notes/
+
+docs/debug.*
+docs/*.aux
+docs/*.log
+docs/*.tex
+docs/*.toc
+docs/*.yaml
