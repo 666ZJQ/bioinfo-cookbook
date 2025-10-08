@@ -1,0 +1,13 @@
+/* blockquote style */
+blockquote {
+    border-left: 5px solid #ccc;  /* 左侧的灰色竖线 */
+    background-color: #f9f9f9; /* 浅灰色背景 */
+    padding: 10px 20px;        /* 内边距，让文字和边框/背景有距离 */
+    margin: 1.5em 0;             /* 外边距，和其他段落隔开 */
+    color: #666;              /* 文字颜色稍变浅 */
+}
+
+/* 移除引述块内段落的默认下边距，避免间距过大 */
+blockquote p {
+    margin-bottom: 0;
+}

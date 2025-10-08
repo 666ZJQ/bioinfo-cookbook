@@ -1,0 +1,221 @@
+/* HTML到PDF转换的CSS样式文件 */
+
+/* 基本页面设置 */
+@page {
+    size: A4;
+    margin: 2.5cm;
+    @top-center {
+        content: "";
+    }
+    @bottom-center {
+        content: "第 " counter(page) " 页";
+        font-size: 10pt;
+        color: #666;
+    }
+}
+
+/* 基本字体和排版 */
+body {
+    font-family: "Source Han Serif CN", "Times New Roman", serif;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Source Han Serif CN", "Times New Roman", serif;
+    font-weight: bold;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    color: #000;
+}
+
+h1 {
+    font-size: 24pt;
+    text-align: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 18pt;
+    page-break-before: always;
+}
+
+h3 {
+    font-size: 14pt;
+}
+
+h4 {
+    font-size: 12pt;
+}
+
+/* 段落样式 */
+p {
+    margin-bottom: 1em;
+    text-indent: 2em;
+}
+
+/* 列表样式 */
+ul, ol {
+    margin-bottom: 1em;
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+/* 引述块样式 */
+blockquote {
+    margin: 1.5em 0;
+    padding: 0.5em 1.5em;
+    border-left: 4px solid #000;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+blockquote p {
+    text-indent: 0;
+    margin-bottom: 0.5em;
+}
+
+/* 代码块样式 */
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1em;
+    margin: 1.5em 0;
+    overflow-x: auto;
+    font-family: "Courier New", monospace;
+    font-size: 10pt;
+    line-height: 1.4;
+}
+
+code {
+    font-family: "Courier New", monospace;
+    font-size: 10pt;
+    background-color: #f0f0f0;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* 语法高亮样式 */
+.sourceCode {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1em;
+    margin: 1.5em 0;
+    overflow-x: auto;
+}
+
+/* 表格样式 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.5em 0;
+    font-size: 11pt;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* 图片样式 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5em auto;
+}
+
+/* 超链接样式 */
+a {
+    color: #0000EE;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #551A8B;
+}
+
+/* 目录样式 */
+.toc {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 1em;
+    margin-bottom: 2em;
+    border-radius: 4px;
+}
+
+.toc ul {
+    padding-left: 1.5em;
+}
+
+.toc li {
+    margin-bottom: 0.3em;
+}
+
+.toc a {
+    color: #333;
+    text-decoration: none;
+}
+
+.toc a:hover {
+    text-decoration: underline;
+}
+
+/* 页面 break 避免设置 */
+h1, h2, h3, h4 {
+    page-break-after: avoid;
+}
+
+pre, blockquote, img, table {
+    page-break-inside: avoid;
+}
+
+/* 特殊内容样式 */
+.footnote {
+    font-size: 9pt;
+    vertical-align: super;
+    color: #666;
+}
+
+.footnotes {
+    font-size: 10pt;
+    border-top: 1px solid #ddd;
+    padding-top: 1em;
+    margin-top: 2em;
+}
+
+/* 章节标题样式 */
+.chapter-title {
+    font-size: 20pt;
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-weight: bold;
+}
+
+/* 避免孤行和寡行 */
+p {
+    widows: 2;
+    orphans: 2;
+}

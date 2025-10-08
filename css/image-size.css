@@ -1,0 +1,45 @@
+/* 图片大小控制样式 */
+
+/* 通用图片样式 */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 小图片样式 */
+img.small {
+    width: 50%;
+    max-width: 300px;
+}
+
+/* 中等图片样式 */
+img.medium {
+    width: 75%;
+    max-width: 500px;
+}
+
+/* 大图片样式 */
+img.large {
+    width: 90%;
+    max-width: 800px;
+}
+
+/* 特定图片样式 */
+img.figure {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 系统发育树图片 */
+img.phylogeny {
+    width: 90%;
+    max-width: 700px;
+}
+
+/* 基因结构图 */
+img.gene-structure {
+    width: 85%;
+    max-width: 600px;
+}

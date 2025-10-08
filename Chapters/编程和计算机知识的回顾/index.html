@@ -1,0 +1,3216 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="ZJQ">
+      
+      
+        <link rel="canonical" href="https://cookbook.jq666.top/Chapters/%E7%BC%96%E7%A8%8B%E5%92%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E7%9A%84%E5%9B%9E%E9%A1%BE/">
+      
+      
+        <link rel="prev" href="../%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E7%94%BB%E5%9B%BE/">
+      
+      
+        <link rel="next" href="../%E5%B0%8F%E6%8F%90%E7%A4%BA/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>编程和计算机知识的回顾 - 生物数据处理CookBook——以基因家族分析为例</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2a3383ac.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/image-size.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="生物数据处理CookBook——以基因家族分析为例" class="md-header__button md-logo" aria-label="生物数据处理CookBook——以基因家族分析为例" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            生物数据处理CookBook——以基因家族分析为例
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              编程和计算机知识的回顾
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="生物数据处理CookBook——以基因家族分析为例" class="md-nav__button md-logo" aria-label="生物数据处理CookBook——以基因家族分析为例" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    生物数据处理CookBook——以基因家族分析为例
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    前言
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8A%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    环境配置及相关软件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    文献阅读
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E7%94%BB%E5%9B%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据处理及画图
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    编程和计算机知识的回顾
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    编程和计算机知识的回顾
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python光速复习
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python光速复习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量和常量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#str" class="md-nav__link">
+    <span class="md-ellipsis">
+      字符串（Str）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="字符串（Str）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    <span class="md-ellipsis">
+      可以用for遍历
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      可以直接截取
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      字符串相关运算符
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      多行字符串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      列表（List）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="列表（List）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建列表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      字典（Dict）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="字典（Dict）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建字典
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      其它
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      while
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作符
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boolean-operations-and-or-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boolean Operations — and​, or​, not
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparisons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparisons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      对于数字的操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      位的操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件语句
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="条件语句">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      if else
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      IO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      导入自定义模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      注释
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      运行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法一：打开终端运行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法二：直接点运行
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟环境
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      调试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      风格
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux基础操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux基础操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      学会自行解决问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础知识
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、文件和目录导航
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、文件和目录操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、查看文件内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、系统和进程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、权限和执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、下载
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      八、实用技巧
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      包管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="包管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细步骤
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="详细步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1apt-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      第1步：apt update，先刷新一下“商品目录”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2apt-search-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      第2步：apt search tree，搜一下想装的软件叫啥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3sudo-apt-install-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      第3步：sudo apt install tree，安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      第4步：检查一下是不是装好了
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      顺便提一下：升级和卸载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译软件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编译软件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是编译？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      链接
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么要用 make？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="为什么要用 make？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-makefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​make​ 和 Makefile
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmake" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么还需要 cmake？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结一下要点：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      可能会问的一些问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可能会问的一些问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译出来的是个啥？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      想给它挪个位置，可以直接用mv吗？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      （添加至环境变量）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则表达式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正则表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      [ ]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​+*?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      {}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      ()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      插入符 ^:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      美元符号 $:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="​\">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#w" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\w
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\W
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\d
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\D
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B0%8F%E6%8F%90%E7%A4%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    小提示
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%90%8E%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    后记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python光速复习
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python光速复习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      变量和常量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#str" class="md-nav__link">
+    <span class="md-ellipsis">
+      字符串（Str）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="字符串（Str）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    <span class="md-ellipsis">
+      可以用for遍历
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      可以直接截取
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      字符串相关运算符
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      多行字符串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      列表（List）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="列表（List）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建列表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      字典（Dict）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="字典（Dict）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建字典
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      基本操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      其它
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      while
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      操作符
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="操作符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boolean-operations-and-or-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boolean Operations — and​, or​, not
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparisons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparisons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      对于数字的操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      位的操作
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      条件语句
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="条件语句">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      if else
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io" class="md-nav__link">
+    <span class="md-ellipsis">
+      IO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      导入自定义模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      注释
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      运行
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="运行">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法一：打开终端运行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      方法二：直接点运行
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      虚拟环境
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      调试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      风格
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux基础操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux基础操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      学会自行解决问题
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础知识
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基础操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、文件和目录导航
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、文件和目录操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、查看文件内容
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、搜索
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、系统和进程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、权限和执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、下载
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      八、实用技巧
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      包管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="包管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细步骤
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="详细步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1apt-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      第1步：apt update，先刷新一下“商品目录”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2apt-search-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      第2步：apt search tree，搜一下想装的软件叫啥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3sudo-apt-install-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      第3步：sudo apt install tree，安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      第4步：检查一下是不是装好了
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      顺便提一下：升级和卸载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译软件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="编译软件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是编译？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      链接
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么要用 make？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="为什么要用 make？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-makefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​make​ 和 Makefile
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmake" class="md-nav__link">
+    <span class="md-ellipsis">
+      为什么还需要 cmake？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结一下要点：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      可能会问的一些问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可能会问的一些问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      编译出来的是个啥？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv" class="md-nav__link">
+    <span class="md-ellipsis">
+      想给它挪个位置，可以直接用mv吗？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      （添加至环境变量）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      正则表达式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="正则表达式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      [ ]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​+*?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      {}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      ()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      插入符 ^:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      美元符号 $:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_57" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="​\">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#w" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\w
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\W
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\d
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ​\D
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">编程和计算机知识的回顾</h1>
+<p>在进行数据处理时，我们会遇到许多问题，包括软件方面的、编程方面的，所有的问题都要尝试自己解决。要相信电脑不会出问题，一定是某个环节出错了。出了问题要善用搜索工具，在网上看看有没有人有相同的问题，他们是如何解决的。现在AI也很聪明，遇到报错可以将报错内容交给AI，应该可以得到解决。一定不要气馁，一定要找各种办法尝试解决。</p>
+<blockquote>
+<p>想到了一个很古老的表情包：</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20251001205324-3eu7am3.png" /></p>
+</blockquote>
+<p>本章包括以下内容：</p>
+<ol>
+<li>
+<p><a href="#20250923211427-g8epocg">Python光速复习</a></p>
+<ol>
+<li><a href="#20250923211424-xjmg6it">变量和常量</a></li>
+<li><a href="#20250923211424-qft7qd9">字符串（Str）</a></li>
+<li><a href="#20250923211424-rts3i9t">列表（List）</a></li>
+<li><a href="#20250923211424-ub22i2a">字典（Dict）</a></li>
+<li><a href="#20250923211424-1ia10tn">for</a></li>
+<li><a href="#20250923211424-ed8lre1">while</a></li>
+<li><a href="#20251007212720-09o0bcv">操作符</a></li>
+<li><a href="#20250923211424-2726jej">条件语句</a></li>
+<li><a href="#20250923211424-duq1zsw">IO</a></li>
+<li><a href="#20250928205757-9alru0r">函数</a></li>
+<li><a href="#20250928205847-v5g1psc">导入自定义模块</a></li>
+<li><a href="#20250928205850-k4m09ym">注释</a></li>
+<li><a href="#20250927102752-lmrp5oz">运行</a></li>
+<li><a href="#20251008100831-q1sloif">虚拟环境</a></li>
+<li><a href="#20250928205514-4m4lv66">调试</a></li>
+<li><a href="#20250929190359-j48dlcj">风格</a></li>
+<li>
+<p><a href="#20250928200307-1lrjmlp">Linux基础操作</a></p>
+</li>
+<li>
+<p><a href="#20250928212502-m5hkl8n">学会自行解决问题</a></p>
+</li>
+<li><a href="#20250928215131-63l3jys">基础知识</a></li>
+<li><a href="#20250928213637-kycoke8">基础操作</a></li>
+<li><a href="#20250928215041-xammop2">包管理</a></li>
+<li><a href="#20250929122655-m979dod">编译软件</a></li>
+<li><a href="#20250929133505-bo7gqxh">Screen</a></li>
+<li>
+<p><a href="#20250930195549-sl4qgoe">正则表达式</a></p>
+</li>
+<li>
+<p><a href="#20250930201239-ra4egy2">[ ]</a></p>
+</li>
+<li><a href="#20250930201239-ignzdnk">+*?</a></li>
+<li><a href="#20250930201239-o6m7wp5">.</a></li>
+<li><a href="#20250930201239-5ncwxax">{}</a></li>
+<li><a href="#20250930201239-m72wpru">()</a></li>
+<li><a href="#20250930201239-07ubeje">插入符 ^:</a></li>
+<li><a href="#20250930201239-ylmo5cl">美元符号 $:</a></li>
+</ol>
+</li>
+</ol>
+<h2 id="python"><span id="20250923211427-g8epocg" style="display: none;"></span>Python光速复习</h2>
+<p>在分析时，我们常常需要自己编写一些脚本，需要自己写一点代码。Python是目前最火热的语言，教程、工具非常多，掌握这一门语言就可以解决许多问题了。众所周知，由于解释器的缘故，Python相比其它语言来说比较慢，但是这不是缺点。有个著名笑话：“对于同一个问题，我写Python花了1分钟，运行用了1小时，你写C花了1小时，运行用了1分钟。花费的总时间是一样的，但是我放松了一小时。”更何况对于我们的问题，运行可能一分钟都用不了，所以写的快更是优势。</p>
+<p>这部分只适用于帮助有基础的同学回忆，并不适合入门。</p>
+<p>对于我们的问题，Python掌握以下内容就足够了：</p>
+<ol>
+<li>基本的数据类型和数据结构：str, number, list和dict</li>
+<li>循环语句：while和for</li>
+<li>条件控制语句：if else和switch case</li>
+<li>函数</li>
+<li>IO的相关方法</li>
+</ol>
+<p>其它的诸如类、装饰器等等都不需要掌握。</p>
+<p>该部分还缺少日志、异常处理等内容，因为我也不会，但也不是大问题。</p>
+<h3 id="_2"><span id="20250923211424-xjmg6it" style="display: none;"></span>变量和常量</h3>
+<p>应该不用多说，大家都理解，在实际使用时，几乎没用过常量</p>
+<p>变量的声明直接用<code>=</code>，变量名该怎么命名大家也都明白。命名规范有什么驼峰式、匈牙利式等等，大家可以自己看看。这个还是要注意一下的，不然过了两天就看不懂自己写的什么了。</p>
+<p>解释器可以自己推断变量的类型，当然还是建议写上类型注解方便理解和问题排查。Python的一些工具也可以从类型注解中提前推断错误，避免犯错。直接在变量名后加上<code>:</code>和类型就可以了</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">str1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Hi&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+</span></code></pre></div>
+<h3 id="str"><span id="20250923211424-qft7qd9" style="display: none;"></span>字符串（Str）</h3>
+<p>就是一堆字符组成的串</p>
+<h4 id="for">可以用for遍历</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">str1</span> <span class="o">=</span> <span class="s2">&quot;This is a sentence.&quot;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">str1</span><span class="p">:</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="o">...</span> 
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">T</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">h</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">i</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">s</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">i</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">s</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">a</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">s</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">e</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">n</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="n">t</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="n">e</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">n</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">c</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="n">e</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="o">.</span>
+</span></code></pre></div>
+<h4 id="_3">可以直接截取</h4>
+<p>大家都明白Python下表是从0开始的，基本语法为<code>str[a:b:c]</code>​其中a代表开始的字符，b代表结束的后一个字符，也就是这里<code>a:b</code>​是一个左闭右开的区间。c代表步长，默认是1，如果为2就是跳着截取。</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">str1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sentence.&quot;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">str1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="s1">&#39;ente&#39;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">str1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="s1">&#39;n&#39;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">str1</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="s1">&#39;.ecnetnes&#39;</span>
+</span></code></pre></div>
+<p>可以参考下图</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250922200939-jgfvlnq.png" /></p>
+<blockquote>
+<p>来源：<a href="https://www.geeksforgeeks.org/python/python-string/">Python String - GeeksforGeeks</a></p>
+</blockquote>
+<h4 id="_4">字符串相关运算符</h4>
+<p>这里直接粘一张别人的表</p>
+<p>变量 a 值为字符串 "Hello"，b 变量值为 "Python"：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>字符串连接</td>
+<td>&gt;&gt;&gt;a+b<br />'HelloPython'<br /></td>
+</tr>
+<tr>
+<td>*</td>
+<td>重复输出字符串</td>
+<td>&gt;&gt;&gt;a*2<br />'HelloHello'<br /></td>
+</tr>
+<tr>
+<td>[]</td>
+<td>通过索引获取字符串中字符</td>
+<td>&gt;&gt;&gt;a[1]<br />'e'<br /></td>
+</tr>
+<tr>
+<td>[ : ]</td>
+<td>截取字符串中的一部分</td>
+<td>&gt;&gt;&gt;a[1:4]<br />'ell'<br /></td>
+</tr>
+<tr>
+<td>in</td>
+<td>成员运算符 - 如果字符串中包含给定的字符返回 True</td>
+<td>&gt;&gt;&gt;"H" in a<br />True<br /></td>
+</tr>
+<tr>
+<td>not in</td>
+<td>成员运算符 - 如果字符串中不包含给定的字符返回 True</td>
+<td>&gt;&gt;&gt;"M" not in a<br />True<br /></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_5">多行字符串</h4>
+<p>三个<code>"</code>就可以了</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;I am Learning</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="s2">Python String on GeeksforGeeks&quot;&quot;&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;I&#39;m a </span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="s1">Geek&#39;&#39;&#39;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Output</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>I am Learning
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Python String on GeeksforGeeks
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>I&#39;m a 
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Geek
+</span></code></pre></div>
+<h4 id="_6">常用方法</h4>
+<p>​<code>upper()</code>​和<code>lower()</code>一个全大写一个全小写，都明白什么意思</p>
+<p>​<code>split()</code>​这个很常用，尤其是在处理一些表格时</p>
+<p>基本用法：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">str1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;A B C D E F G&quot;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">]</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">str1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;A|B|C D|E F|G&quot;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="o">&gt;&gt;&gt;</span> 
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">))</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C D&#39;</span><span class="p">,</span> <span class="s1">&#39;E F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">]</span>
+</span></code></pre></div>
+<p>括号内放要切的字符，例如是<code>"|"</code>​就从根竖线开始切。切完的结果是一个由字符串构成的列表。</p>
+<p>​<code>strip()</code>这个也很常用，在处理文本文件时，我们要除去换行符等。</p>
+<p>你可能会发现Python的字符串可以用<code>str.function()</code>这种方式操作，这其实说明python的字符串就是一个类。仔细想想其它的内置类型也有类似的特性，它们也是类。</p>
+<h3 id="list"><span id="20250923211424-rts3i9t" style="display: none;"></span>列表（List）</h3>
+<p>列表是Python中最常用的数据结构之一，用于存储有序的元素集合。</p>
+<h4 id="_7">创建列表</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 空列表</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">empty_list</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># 或</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">empty_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># 包含元素的列表</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">numbers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">fruits</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">]</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">mixed</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>  <span class="c1"># 可以包含不同类型</span>
+</span></code></pre></div>
+<h4 id="_8">基本操作</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 访问元素（索引从0开始）</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">]</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>    <span class="c1"># &quot;apple&quot;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>   <span class="c1"># &quot;orange&quot;（倒数第一个）</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># 切片操作</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># [&quot;apple&quot;, &quot;banana&quot;]</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>   <span class="c1"># [&quot;banana&quot;, &quot;orange&quot;]</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># 修改元素</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="n">fruits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;grape&quot;</span>  <span class="c1"># 列表变为[&quot;apple&quot;, &quot;grape&quot;, &quot;orange&quot;]</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># 添加元素</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="n">fruits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;pear&quot;</span><span class="p">)</span>     <span class="c1"># 末尾添加</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="n">fruits</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;kiwi&quot;</span><span class="p">)</span>  <span class="c1"># 指定位置插入</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="c1"># 删除元素</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="n">fruits</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>      <span class="c1"># 删除最后一个元素</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="n">fruits</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>     <span class="c1"># 删除指定位置元素</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="n">fruits</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">)</span>  <span class="c1"># 删除指定值元素</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="c1"># 列表长度</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fruits</span><span class="p">))</span>  <span class="c1"># 获取列表长度</span>
+</span></code></pre></div>
+<h4 id="_9">常用方法</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 列表拼接</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">combined</span> <span class="o">=</span> <span class="n">list1</span> <span class="o">+</span> <span class="n">list2</span>  <span class="c1"># [1, 2, 3, 4, 5, 6]</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># 列表重复</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">repeated</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span>  <span class="c1"># [0, 0, 0, 0, 0]</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1"># 查找元素</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="k">if</span> <span class="s2">&quot;apple&quot;</span> <span class="ow">in</span> <span class="n">fruits</span><span class="p">:</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;找到了苹果&quot;</span><span class="p">)</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1"># 排序</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="n">numbers</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>           <span class="c1"># 原地排序</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="n">sorted_numbers</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>  <span class="c1"># 返回新列表</span>
+</span></code></pre></div>
+<h3 id="dict"><span id="20250923211424-ub22i2a" style="display: none;"></span>字典（Dict）</h3>
+<p>字典用于存储键值对，提供快速的数据查找能力。</p>
+<h4 id="_10">创建字典</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 空字典</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">empty_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># 或</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">empty_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1"># 包含键值对的字典</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="n">student</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;张三&quot;</span><span class="p">,</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="s2">&quot;major&quot;</span><span class="p">:</span> <span class="s2">&quot;生物信息学&quot;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="p">}</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="n">scores</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    <span class="s2">&quot;数学&quot;</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    <span class="s2">&quot;英语&quot;</span><span class="p">:</span> <span class="mi">88</span><span class="p">,</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    <span class="s2">&quot;编程&quot;</span><span class="p">:</span> <span class="mi">92</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="_11">基本操作</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 访问值</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>  <span class="c1"># &quot;张三&quot;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># 安全访问（避免KeyError）</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">age</span> <span class="o">=</span> <span class="n">student</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 如果键不存在返回默认值0</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># 修改值</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">student</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">21</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1"># 添加新键值对</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="n">student</span><span class="p">[</span><span class="s2">&quot;grade&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;大二&quot;</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="c1"># 删除键值对</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="k">del</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;major&quot;</span><span class="p">]</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="n">removed_value</span> <span class="o">=</span> <span class="n">student</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span>  <span class="c1"># 删除并返回值</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="c1"># 检查键是否存在</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">student</span><span class="p">:</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;姓名存在&quot;</span><span class="p">)</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="c1"># 获取所有键和值</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="n">keys</span> <span class="o">=</span> <span class="n">student</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>    <span class="c1"># 所有键</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="n">values</span> <span class="o">=</span> <span class="n">student</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>  <span class="c1"># 所有值</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="n">items</span> <span class="o">=</span> <span class="n">student</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>  <span class="c1"># 所有键值对</span>
+</span></code></pre></div>
+<h4 id="_12">常用方法</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># 字典合并</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">dict1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">dict2</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">dict1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dict2</span><span class="p">)</span>  <span class="c1"># dict1变为{&quot;a&quot;: 1, &quot;b&quot;: 3, &quot;c&quot;: 4}</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># 遍历字典</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">student</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># 字典推导式</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="n">squares</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)}</span>  <span class="c1"># {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</span>
+</span></code></pre></div>
+<h4 id="_13">其它</h4>
+<p>字典还有所谓“深复制”和“浅复制”的区别，大家可以自己探索</p>
+<h3 id="for_1"><span id="20250923211424-1ia10tn" style="display: none;"></span>for</h3>
+<p>不想写了，待更新</p>
+<h3 id="while"><span id="20250923211424-ed8lre1" style="display: none;"></span>while</h3>
+<p>它的功能好像可以被for完全代替</p>
+<h3 id="_14"><span id="20251007212720-09o0bcv" style="display: none;"></span>操作符</h3>
+<p>大家都会，这里直接引用Python的文档。</p>
+<h4 id="boolean-operations-and-or-not">Boolean Operations — <code>and</code>​, <code>or</code>​, <code>not</code></h4>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Result</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>​<code>x or y</code></td>
+<td>if <em>x</em> is true, then ​<em>x</em>​, else <em>y</em></td>
+<td>(1)</td>
+</tr>
+<tr>
+<td>​<code>x and y</code></td>
+<td>if <em>x</em> is false, then ​<em>x</em>​, else <em>y</em></td>
+<td>(2)</td>
+</tr>
+<tr>
+<td>​<code>not x</code></td>
+<td>if <em>x</em> is false, then <code>True</code>​, else <code>False</code></td>
+<td>(3)</td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ol>
+<li>This is a short-circuit operator, so it only evaluates the second argument if the first one is false.</li>
+<li>This is a short-circuit operator, so it only evaluates the second argument if the first one is true.</li>
+<li>​<code>not</code>​ has a lower priority than non-Boolean operators, so <code>not a == b</code>​ is interpreted as <code>not (a == b)</code>​, and <code>a == not b</code> is a syntax error.</li>
+</ol>
+<h4 id="comparisons">Comparisons</h4>
+<p>There are eight comparison operations in Python. They all have the same priority (which is higher than that of the Boolean operations). Comparisons can be chained arbitrarily; for example, <code>x &lt; y &lt;= z</code>​ is equivalent to <code>x &lt; y and y &lt;= z</code>​, except that <em>y</em> is evaluated only once (but in both cases <em>z</em> is not evaluated at all when <code>x &lt; y</code> is found to be false).</p>
+<p>This table summarizes the comparison operations:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>​<code>&lt;</code></td>
+<td>strictly less than</td>
+</tr>
+<tr>
+<td>​<code>&lt;=</code></td>
+<td>less than or equal</td>
+</tr>
+<tr>
+<td>​<code>&gt;</code></td>
+<td>strictly greater than</td>
+</tr>
+<tr>
+<td>​<code>&gt;=</code></td>
+<td>greater than or equal</td>
+</tr>
+<tr>
+<td>​<code>==</code></td>
+<td>equal</td>
+</tr>
+<tr>
+<td>​<code>!=</code></td>
+<td>not equal</td>
+</tr>
+<tr>
+<td>​<code>is</code></td>
+<td>object identity</td>
+</tr>
+<tr>
+<td>​<code>is not</code></td>
+<td>negated object identity</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_15">对于数字的操作</h4>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Result</th>
+<th>Notes</th>
+<th>Full documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>​<code>x + y</code></td>
+<td>sum of <em>x</em> and <em>y</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>x - y</code></td>
+<td>difference of <em>x</em> and <em>y</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>x * y</code></td>
+<td>product of <em>x</em> and <em>y</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>x / y</code></td>
+<td>quotient of <em>x</em> and <em>y</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>x // y</code></td>
+<td>floored quotient of <em>x</em> and <em>y</em></td>
+<td>(1)(2)</td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>x % y</code></td>
+<td>remainder of <code>x / y</code></td>
+<td>(2)</td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>-x</code></td>
+<td><em>x</em> negated</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>+x</code></td>
+<td><em>x</em> unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>abs(x)</code></td>
+<td>absolute value or magnitude of <em>x</em></td>
+<td></td>
+<td>​<a href="https://docs.python.org/3.13/library/functions.html#abs" title="abs"><code>abs()</code></a></td>
+</tr>
+<tr>
+<td>​<code>int(x)</code></td>
+<td><em>x</em> converted to integer</td>
+<td>(3)(6)</td>
+<td>​<a href="https://docs.python.org/3.13/library/functions.html#int" title="int"><code>int()</code></a></td>
+</tr>
+<tr>
+<td>​<code>float(x)</code></td>
+<td><em>x</em> converted to floating point</td>
+<td>(4)(6)</td>
+<td>​<a href="https://docs.python.org/3.13/library/functions.html#float" title="float"><code>float()</code></a></td>
+</tr>
+<tr>
+<td>​<code>complex(re, im)</code></td>
+<td>a complex number with real part ​<em>re</em>​, imaginary part ​<em>im</em>​. <em>im</em> defaults to zero.</td>
+<td>(6)</td>
+<td>​<a href="https://docs.python.org/3.13/library/functions.html#complex" title="complex"><code>complex()</code></a></td>
+</tr>
+<tr>
+<td>​<code>c.conjugate()</code></td>
+<td>conjugate of the complex number <em>c</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>​<code>divmod(x, y)</code></td>
+<td>the pair <code>(x // y, x % y)</code></td>
+<td>(2)</td>
+<td>​<a href="https://docs.python.org/3.13/library/functions.html#divmod" title="divmod"><code>divmod()</code></a></td>
+</tr>
+<tr>
+<td>​<code>pow(x, y)</code></td>
+<td><em>x</em> to the power <em>y</em></td>
+<td>(5)</td>
+<td>​<a href="https://docs.python.org/3.13/library/functions.html#pow" title="pow"><code>pow()</code></a></td>
+</tr>
+<tr>
+<td>​<code>x ** y</code></td>
+<td><em>x</em> to the power <em>y</em></td>
+<td>(5)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ol>
+<li>Also referred to as integer division. For operands of type <a href="https://docs.python.org/3.13/library/functions.html#int" title="int"><code>int</code></a>​, the result has type <a href="https://docs.python.org/3.13/library/functions.html#int" title="int"><code>int</code></a>​. For operands of type <a href="https://docs.python.org/3.13/library/functions.html#float" title="float"><code>float</code></a>​, the result has type <a href="https://docs.python.org/3.13/library/functions.html#float" title="float"><code>float</code></a>​. In general, the result is a whole integer, though the result’s type is not necessarily <a href="https://docs.python.org/3.13/library/functions.html#int" title="int"><code>int</code></a>​. The result is always rounded towards minus infinity: <code>1//2</code>​ is <code>0</code>​, <code>(-1)//2</code>​ is <code>-1</code>​, <code>1//(-2)</code>​ is <code>-1</code>​, and <code>(-1)//(-2)</code>​ is <code>0</code>.</li>
+<li>Not for complex numbers. Instead convert to floats using <a href="https://docs.python.org/3.13/library/functions.html#abs" title="abs"><code>abs()</code></a> if appropriate.</li>
+<li>Conversion from <a href="https://docs.python.org/3.13/library/functions.html#float" title="float"><code>float</code></a>​ to <a href="https://docs.python.org/3.13/library/functions.html#int" title="int"><code>int</code></a>​ truncates, discarding the fractional part. See functions <a href="https://docs.python.org/3.13/library/math.html#math.floor" title="math.floor"><code>math.floor()</code></a>​ and <a href="https://docs.python.org/3.13/library/math.html#math.ceil" title="math.ceil"><code>math.ceil()</code></a> for alternative conversions.</li>
+<li>float also accepts the strings “nan” and “inf” with an optional prefix “+” or “-” for Not a Number (NaN) and positive or negative infinity.</li>
+<li>Python defines <code>pow(0, 0)</code>​ and <code>0 ** 0</code>​ to be <code>1</code>, as is common for programming languages.</li>
+<li>The numeric literals accepted include the digits <code>0</code>​ to <code>9</code>​ or any Unicode equivalent (code points with the <code>Nd</code> property).</li>
+</ol>
+<h4 id="_16">位的操作</h4>
+<p>Python里几乎用不上</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Result</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>​<code>x \| y</code></td>
+<td>bitwise <em>or</em> of <em>x</em> and <em>y</em></td>
+<td>(4)</td>
+</tr>
+<tr>
+<td>​<code>x ^ y</code></td>
+<td>bitwise <em>exclusive or</em> of <em>x</em> and <em>y</em></td>
+<td>(4)</td>
+</tr>
+<tr>
+<td>​<code>x &amp; y</code></td>
+<td>bitwise <em>and</em> of <em>x</em> and <em>y</em></td>
+<td>(4)</td>
+</tr>
+<tr>
+<td>​<code>x &lt;&lt; n</code></td>
+<td><em>x</em> shifted left by <em>n</em> bits</td>
+<td>(1)(2)</td>
+</tr>
+<tr>
+<td>​<code>x &gt;&gt; n</code></td>
+<td><em>x</em> shifted right by <em>n</em> bits</td>
+<td>(1)(3)</td>
+</tr>
+<tr>
+<td>​<code>~x</code></td>
+<td>the bits of <em>x</em> inverted</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ol>
+<li>Negative shift counts are illegal and cause a <a href="https://docs.python.org/3.13/library/exceptions.html#ValueError" title="ValueError"><code>ValueError</code></a> to be raised.</li>
+<li>A left shift by <em>n</em> bits is equivalent to multiplication by <code>pow(2, n)</code>.</li>
+<li>A right shift by <em>n</em> bits is equivalent to floor division by <code>pow(2, n)</code>.</li>
+<li>Performing these calculations with at least one extra sign extension bit in a finite two’s complement representation (a working bit-width of <code>1 + max(x.bit_length(), y.bit_length())</code> or more) is sufficient to get the same result as if there were an infinite number of sign bits.</li>
+</ol>
+<h3 id="_17"><span id="20250923211424-2726jej" style="display: none;"></span>条件语句</h3>
+<p>这个东西很简单，大家都明白，就是<code>if else</code>​和<code>switch case</code>​这个东西。其中<code>match case</code>用的很少。</p>
+<h4 id="if-else">if else</h4>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># 常见的就是</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="c1"># do something</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="c1"># do something</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># 有一种可以放在一行的写法</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a is negative&quot;</span><span class="p">)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="c1"># 如果条件比较多可以用elif</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a is negative&quot;</span><span class="p">)</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="k">elif</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>    <span class="c1"># do something</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="k">elif</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>    <span class="c1"># do something</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="k">else</span><span class="p">:</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>    <span class="c1"># do something</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="c1"># 还有一种方法，在其它语言里似乎叫三目运算符</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="n">age</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Adult&quot;</span> <span class="k">if</span> <span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span> <span class="k">else</span> <span class="s2">&quot;Minor&quot;</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="c1"># 这里输出&quot;Adult&quot;</span>
+</span></code></pre></div>
+<h3 id="io"><span id="20250923211424-duq1zsw" style="display: none;"></span>IO</h3>
+<p>​<code>input()</code>​和<code>print()</code>都很简单</p>
+<p>我们都学过通过<code>open()</code>​和<code>close()</code>​来打开和关闭文件。</p>
+<p>但一般我喜欢用下面这种方式来打开文件，因为可以不用自己关文件</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="k">continue</span> <span class="c1">#操作文件的代码</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># 其他的代码</span>
+</span></code></pre></div>
+<h3 id="_18"><span id="20250928205757-9alru0r" style="display: none;"></span>函数</h3>
+<p>这东西最早出现就是为了实现代码的复用。比如我们常常需要处理fasta序列文件，如果每次都实现一下fasta的处理会非常麻烦，所以我们可以把它写成一个函数在，需要的时候直接调用。</p>
+<p>函数的声明大家应该很清楚。这里注意python的函数体没有花括号<code>{}</code>，而是用冒号和空格区分。有时写晕了可能会加个花括号上去。</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928210332-3qg7dwu.png" /></p>
+<blockquote>
+<p>图片来源：Geeksforgeeks</p>
+</blockquote>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 函数可以设置默认参数，例如这样</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">my_print</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hahaha&quot;</span><span class="p">):</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># 这样我们调用时</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">my_print</span><span class="p">()</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># 结果为&#39;Hahaha&#39;</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="c1"># 函数的变量可以有类型注释</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">func2</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Hahaha&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> 
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="k">return</span> <span class="n">text</span><span class="o">*</span><span class="mi">2</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="c1"># 这样可以帮助我们理解函数的作用</span>
+</span></code></pre></div>
+<p>怎么调用也应该很清楚</p>
+<h3 id="_19"><span id="20250928205847-v5g1psc" style="display: none;"></span>导入自定义模块</h3>
+<p>有时候我们发现有些函数我们经常使用，例如对于fasta文件的读取。这时候在每个文件里实现该功能就没有必要了，我们可以构建一个<code>utlize.py</code>文件，把这些常用的函数放进去，然后在其它地方调用。</p>
+<h3 id="_20"><span id="20250928205850-k4m09ym" style="display: none;"></span>注释</h3>
+<p>注释是非常重要的，否则过了两天就搞不懂自己的目的了。不利于我们研究的继续进行</p>
+<p>python中的注释以<code>#</code>​号开头。对于多行需要打上注释的情况，现在的ide都有快捷键帮助我们，选中要注释的行然后要按<code>Ctrl+/</code>就可以了。</p>
+<h3 id="_21"><span id="20250927102752-lmrp5oz" style="display: none;"></span>运行</h3>
+<p>想不到这竟然是一个问题</p>
+<p>这里说一下在vscode中运行的方法</p>
+<h4 id="_22">方法一：打开终端运行</h4>
+<p>点击菜单栏中的终端-&gt;新建一个终端-&gt;终端中输入<code>python3 ./script.py</code></p>
+<p>这里输入的是python脚本的相对路径（因为直接在当前目录下）</p>
+<p>当然有时会出现没有反应的情况，可能是因为没有把python的安装路径加入环境变量的path路径。这时需要手动添加一下。</p>
+<h4 id="_23">方法二：直接点运行</h4>
+<p>安装并开启python插件后，插件应该能自动识别出python解释器。此时可以直接点击右上角运行</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250927140641-969v3o3.png" /></p>
+<h3 id="_24"><span id="20251008100831-q1sloif" style="display: none;"></span>虚拟环境</h3>
+<p>在一般情况下，推荐使用虚拟环境。这是因为虚拟环境能够将当前项目所需的依赖环境与我们电脑中原本的系统环境完全隔离开来。</p>
+<p>你可以把虚拟环境想象成一个“独立的工作室”——在这个空间里安装、升级或删除任何包，都不会影响到系统全局的 Python 环境，也不会影响其他项目。这样一来，不同项目之间就不会因为依赖版本不同而产生冲突，项目的运行环境也更加干净、可控。尤其是在ubuntu系统中，由于它的包管理器要用到python，所以不允许我们直接<code>pip</code>安装（防止把系统搞崩）。</p>
+<p>虚拟环境有许多使用方式，这里介绍一个最简单的，也是Python自带的venv。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># 直接在目录下输入</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>&gt;<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv_test
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># venv_test是我们起的名字，一般情况下约定俗成使用.venv</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># 创建好了我们来看一看</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>&gt;<span class="w"> </span>tree<span class="w"> </span>-L<span class="w"> </span><span class="m">3</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>.
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>└──<span class="w"> </span>venv_test
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span>├──<span class="w"> </span>bin
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>activate
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>activate.csh
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>activate.fish
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>Activate.ps1
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>pip
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>pip3
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>pip3.12
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>python<span class="w"> </span>-&gt;<span class="w"> </span>python3
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>python3<span class="w"> </span>-&gt;<span class="w"> </span>/usr/bin/python3
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>python3.12<span class="w"> </span>-&gt;<span class="w"> </span>python3
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">    </span>├──<span class="w"> </span>include
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>python3.12
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">    </span>├──<span class="w"> </span>lib
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>python3.12
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">    </span>├──<span class="w"> </span>lib64<span class="w"> </span>-&gt;<span class="w"> </span>lib
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">    </span>└──<span class="w"> </span>pyvenv.cfg
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="c1"># 运行bin/activate就可以激活虚拟环境，windows下应该是在Script里</span>
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>root@:.../home/experience_sum/my_project#<span class="w"> </span><span class="nb">source</span><span class="w"> </span>venv_test/bin/activate
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="o">(</span>venv_test<span class="o">)</span><span class="w"> </span>root@...:/home/experience_sum/my_project#
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="c1"># 前面出现了(venv_test) 表示在虚拟环境中</span>
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>
+</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="c1"># 退出虚拟环境输入deactive就可以了</span>
+</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="o">(</span>venv_test<span class="o">)</span><span class="w"> </span>root@...:/home/experience_sum/my_project#<span class="w"> </span>deactivate<span class="w"> </span>
+</span><span id="__span-15-34"><a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a>root@...:/home/experience_sum/my_project#<span class="w"> </span>
+</span><span id="__span-15-35"><a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a>
+</span><span id="__span-15-36"><a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="c1"># 删除虚拟环境，直接删除创建的那个文件夹就可以了</span>
+</span><span id="__span-15-37"><a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a>rm<span class="w"> </span>-r<span class="w"> </span>venv_test/
+</span></code></pre></div>
+<h3 id="_25"><span id="20250928205514-4m4lv66" style="display: none;"></span>调试</h3>
+<p>有时候程序并不是像我们想的那样运行，当然电脑是绝对没有错的，一定是我们哪里疏忽了。这时就需要利用好调试功能。</p>
+<p>我们在安装python时会自带一个调试器PDB，是在命令行中使用的。因为PDB上手需要一定的基础，所以我们可以利用vscode来调试。</p>
+<p>点击小三角旁的箭头，选择启动调试（这里是倒数第二个）</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928210206-xkmcxsa.png" /></p>
+<p>我们可以打断点，这样程序在运行到这的时候就会暂停，然后我们就可以检查问题了。</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928214336-noy6owz.png" /></p>
+<p>在左侧可以看到变量，在调试控制台里可以输入代码进行检查。</p>
+<p>断点也不只一种，可以自行深入学习</p>
+<h3 id="_26"><span id="20250929190359-j48dlcj" style="display: none;"></span>风格</h3>
+<p>代码风格是无数人总结出来的优秀经验。可以自行在网上搜索学习。</p>
+<h2 id="linux"><span id="20250928200307-1lrjmlp" style="display: none;"></span>Linux基础操作</h2>
+<p>linux是一个应用的很广泛的操作系统，最早是一个瑞典的一个研二的学生Linus Torvalds写出来的。</p>
+<p>总之就是很常用。</p>
+<p>关于底层的东西我们也不需要了解，只要知道怎么使用就可以了。</p>
+<p>打开终端远程连接到系统上时，会看到这么一个东西</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928211938-b7fdtwo.png" /></p>
+<p>这个就是shell，外壳，我们通过它来使用电脑。shell本身也是一种软件，有bash, zsh, fish等，它们通常都是兼容的。自带的应该是bash。</p>
+<p>网上还有人教我们怎么把这个黑黑的东西变得好看一点。</p>
+<p>比如这样：</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928212320-mzutze5.png" /></p>
+<p>这样：</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928212802-668ohle.png" /></p>
+<p>当然这些都是比较进阶的内容，这里不会涉及。感兴趣的可以自己上网搜索。</p>
+<h3 id="_27"><span id="20250928212502-m5hkl8n" style="display: none;"></span>学会自行解决问题</h3>
+<p>所有的问题都要尝试自己解决，比如某个命令不会用，某项操作有问题</p>
+<p>bash中有这样一个命令，<code>man</code>大概是manuscript的意思。</p>
+<p>最简单的用法就是在后面加上你要学习的命令。比如让它自己解释一下自己</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>man<span class="w"> </span>man
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># 打开了一个文档</span>
+</span></code></pre></div>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928213107-gl644y4.png" /></p>
+<p>这里的内容很长很全面，按j和k或上下两个方向键可以上下翻面，按<code>q</code>退出</p>
+<p>看看ls的作用，就输入<code>man ls</code></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928213257-9n9pexp.png" /></p>
+<p>当然man的内容很多，我们想要快速了解的话还是有的慢。bash还有一个命令<code>whatis</code>​，就是字面意思，使用方法也和<code>man</code>一样。但是它没有man全面，有很多命令没有收录</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250928213613-hf0yha2.png" /></p>
+<h3 id="_28"><span id="20250928215131-63l3jys" style="display: none;"></span>基础知识</h3>
+<p>众所周知，我们现在用的操作系统都是文件夹一层套一层的。我们打交道的通常就是一个黑框，因为图形化界面需要消耗性能。</p>
+<p>我们用<code>pwd</code>（print working directory）可以输出当前所在的路径。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>root@iv-ydx661fbb4qbxytets0:/home/experience_sum#<span class="w"> </span><span class="nb">pwd</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/home/experience_sum
+</span></code></pre></div>
+<p>​<code>/home/experience_sum</code>这就是路径</p>
+<h3 id="_29"><span id="20250928213637-kycoke8" style="display: none;"></span>基础操作</h3>
+<h4 id="_30">一、文件和目录导航</h4>
+<ul>
+<li>​<code>pwd</code> (Print Working Directory): 显示你当前所在的路径。</li>
+<li>
+<p>​<code>ls</code> (List): 列出当前目录下的文件和文件夹。</p>
+</li>
+<li>
+<p>​<code>ls -l</code>: 显示详细信息（权限、所有者、大小等）。</p>
+</li>
+<li>​<code>ls -a</code>​: 显示所有文件，包括隐藏文件（以<code>.</code>开头）。</li>
+<li>​<code>ls -h</code>: 显示文件的大小更易懂，就是换了个单位（h大概是human的意思）</li>
+<li>
+<p>​<code>cd</code> (Change Directory): 切换目录。</p>
+</li>
+<li>
+<p>​<code>cd /path/to/directory</code>: 进入指定目录。</p>
+</li>
+<li>​<code>cd ..</code>: 返回上一级目录。</li>
+<li>​<code>cd ~</code>​ 或 <code>cd</code>: 回到你的主目录 (home)。不同用户的主目录不一样</li>
+</ul>
+<h4 id="_31">二、文件和目录操作</h4>
+<ul>
+<li>​<code>mkdir &lt;目录名&gt;</code> (Make Directory): 创建一个新目录。</li>
+<li>​<code>touch &lt;文件名&gt;</code>: 创建一个空文件或更新文件时间戳（很形象，就是摸它一下）。</li>
+<li>
+<p>​<code>cp &lt;源文件&gt; &lt;目标位置&gt;</code> (Copy): 复制文件或目录。</p>
+</li>
+<li>
+<p>​<code>cp -r &lt;源目录&gt; &lt;目标位置&gt;</code>​: 复制整个目录（<code>r</code>代表递归）。</p>
+</li>
+<li>​<code>mv &lt;旧名称&gt; &lt;新名称&gt;</code> (Move): 移动或重命名文件/目录。</li>
+<li>​<code>rm &lt;文件名&gt;</code> (Remove): 删除文件。</li>
+<li>
+<p>​<code>rm -r &lt;目录名&gt;</code>: 删除目录及其下所有内容。</p>
+</li>
+<li>
+<p><strong>警告</strong>: <code>rm -rf</code>​ 会强制删除且无法恢复，请<strong>极其谨慎</strong>使用！</p>
+</li>
+</ul>
+<h4 id="_32">三、查看文件内容</h4>
+<ul>
+<li>​<code>cat &lt;文件名&gt;</code>: 显示整个文件的内容（适合小文件）。</li>
+<li>​<code>less &lt;文件名&gt;</code>​: 分页查看文件内容，可上下滚动（按 <code>q</code> 退出）。</li>
+<li>​<code>head &lt;文件名&gt;</code>: 查看文件的前几行（默认10行）。</li>
+<li>
+<p>​<code>tail &lt;文件名&gt;</code>: 查看文件的后几行（默认10行）。</p>
+</li>
+<li>
+<p>​<code>tail -f &lt;文件名&gt;</code>: 实时查看文件新增的内容，常用于看日志。</p>
+</li>
+</ul>
+<h4 id="_33">四、搜索</h4>
+<ul>
+<li>​<code>find &lt;路径&gt; -name "&lt;文件名&gt;"</code>: 在指定路径下按名称查找文件。</li>
+<li>​<code>grep "&lt;关键词&gt;" &lt;文件名&gt;</code>: 在文件中搜索包含关键词的行。</li>
+</ul>
+<h4 id="_34">五、系统和进程</h4>
+<p>这个不常用</p>
+<ul>
+<li>​<code>ps aux</code>: 查看系统中所有正在运行的进程。</li>
+<li>​<code>kill &lt;进程ID&gt;</code>: 结束一个进程。</li>
+<li>​<code>top</code>​ 或 <code>htop</code>: 实时动态地查看系统资源和进程状态。</li>
+<li>​<code>df -h</code>​: 查看磁盘空间使用情况（<code>-h</code>使其易读）。</li>
+</ul>
+<h4 id="_35">六、权限和执行</h4>
+<p>这个不常用</p>
+<ul>
+<li>​<code>sudo &lt;命令&gt;</code>​: 以管理员（root）权限执行命令。</li>
+<li>​<code>chmod +x &lt;文件名&gt;</code>: 给文件添加可执行权限。</li>
+</ul>
+<h4 id="_36">七、下载</h4>
+<ul>
+<li>​<code>wget</code>: 从链接中下载文件</li>
+</ul>
+<h4 id="_37">八、实用技巧</h4>
+<ul>
+<li><strong>Tab 键</strong>: 自动补全命令或文件名，非常高效。</li>
+<li>
+<p><strong>管道</strong>  <strong>​<code>|</code>​</strong> : 将一个命令的输出作为另一个命令的输入。</p>
+</li>
+<li>
+<p>例如：<code>ps aux | grep "chrome"</code> (查找所有与chrome相关的进程)。</p>
+</li>
+<li>
+<p><strong>重定向</strong>  <strong>​<code>&gt;</code>​</strong> : 将命令的输出结果写入文件（会覆盖原内容）。</p>
+</li>
+<li>
+<p>例如：<code>ls -l &gt; file_list.txt</code></p>
+</li>
+<li><strong>重定向</strong>  <strong>​<code>&gt;&gt;</code>​</strong> : 将输出结果追加到文件末尾。</li>
+</ul>
+<h3 id="_38"><span id="20250928215041-xammop2" style="display: none;"></span>包管理</h3>
+<p>在Linux世界中，我们通常不从网上随意下载 <code>.exe</code>​ 文件来安装软件。取而代之的是使用操作系统自带的<strong>包管理器（Package Manager）</strong> 。这可以理解为一个官方认证、安全可靠的软件商店，它负责处理软件的下载、安装、更新、依赖关系和卸载。</p>
+<p>在Ubuntu及其衍生系统（如Linux Mint）中，这个强大的工具就是<code>apt</code> (Advanced Package Tool)。其它不同的发行版有不同的包管理器。</p>
+<p>下面是使用<code>apt</code>​安装软件（以<code>tree</code>​为例）的步骤。<code>tree</code>是一个能以树状结构显示目录和文件的小工具，非常实用。</p>
+<h4 id="_39">详细步骤</h4>
+<h5 id="1apt-update">第1步：<code>apt update</code>，先刷新一下“商品目录”</h5>
+<p>在去“商店”买东西前，最好先拿一份最新的商品宣传单，看看都有啥、最新价格是多少。<code>apt update</code>做的就是这个事。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span></code></pre></div>
+<p>这个命令会连接到Ubuntu的服务器，把你本地的软件列表更新到最新。<strong>它不会安装或升级任何软件</strong>，只是刷新列表，但这一步非常重要，不然你可能会装不上软件，或者装了个很老的版本。</p>
+<h5 id="2apt-search-tree">第2步：<code>apt search tree</code>，搜一下想装的软件叫啥</h5>
+<p>有时候你不确定软件的准确名字，用<code>search</code>搜一下就行。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>apt<span class="w"> </span>search<span class="w"> </span>tree
+</span></code></pre></div>
+<p>(小提示：<code>search</code>​一般不用<code>sudo</code>)</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Sorting...
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Full<span class="w"> </span>Text<span class="w"> </span>Search...
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>...
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>tree/noble,now<span class="w"> </span><span class="m">2</span>.1.1-1<span class="w"> </span>amd64<span class="w"> </span><span class="o">[</span>installed<span class="o">]</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span>displays<span class="w"> </span>an<span class="w"> </span>indented<span class="w"> </span>directory<span class="w"> </span>tree,<span class="w"> </span><span class="k">in</span><span class="w"> </span>color
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>...
+</span></code></pre></div>
+<p>这里会出来一堆东西，简单翻翻。看到那个叫 <code>tree</code>​ 的，后面的描述是“displays an indented directory tree...”，差不多就是它了。确定名称就是<code>tree</code>。</p>
+<p>如果你想看得更仔细点，比如想知道它多大、有啥依赖，可以用 <code>apt show</code>：</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>apt<span class="w"> </span>show<span class="w"> </span>tree
+</span></code></pre></div>
+<p>这就像看商品的详细说明书，确认一下没问题再“下单”。</p>
+<h5 id="3sudo-apt-install-tree">第3步：<code>sudo apt install tree</code>，安装</h5>
+<p>找到想要的东西了，就可以直接安装了。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tree
+</span></code></pre></div>
+<p>这时候，电脑会很贴心地告诉你：</p>
+<ol>
+<li>除了<code>tree</code>本身，可能还需要装一些其他它依赖的小零件（依赖包）。</li>
+<li>所有这些东西装完总共要占多少硬盘空间。</li>
+<li>最后问你一句 <code>Do you want to continue? [Y/n]</code> (要继续吗？)</li>
+</ol>
+<p>你只要自信地敲一个 <code>Y</code> 再按回车，然后等一小会儿，它就会自动下载安装好。</p>
+<p>（懒人办法：如果你很确定，可以在命令后面加个 <code>-y</code>​，它就不会问你了，直接装。<code>sudo apt install -y tree</code>）</p>
+<h5 id="4">第4步：检查一下是不是装好了</h5>
+<p>装完之后，总得确认下吧？很简单，直接在终端里敲一下这个命令：</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>tree<span class="w"> </span>--version
+</span></code></pre></div>
+<p>如果它成功输出了版本号，那就说明<code>tree</code>已经安装成功，可以开始用了</p>
+<hr />
+<h5 id="_40">顺便提一下：升级和卸载</h5>
+<p>软件管理，除了安装，还有升级和卸载。</p>
+<ul>
+<li><strong>给所有软件升个级</strong>：</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+</span></code></pre></div>
+<p>（通常推荐先 <code>update</code>​ 再 <code>upgrade</code>）
+- <strong>卸载软件</strong>：<br />
+  如果哪天你不用<code>tree</code>了，可以这样卸载它。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>tree
+</span></code></pre></div>
+<p>这个命令会删掉软件，但可能会留下一些配置文件。
+- <strong>卸载得更干净一点</strong>：<br />
+  如果你想把配置文件也一起删掉，可以用<code>purge</code>。</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>purge<span class="w"> </span>tree
+</span></code></pre></div>
+- <strong>清理不再需要的“零件”</strong> ：<br />
+  卸载软件后，当初跟着一起装的那些依赖“小零件”可能就没用了，用下面这个命令可以把它们都清理掉，给硬盘瘦瘦身。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove
+</span></code></pre></div>
+<h4 id="_41">总结</h4>
+<p>软件安装流程可以概括为：</p>
+<ol>
+<li>​<strong>​<code>sudo apt update</code>​</strong>：更新软件“目录”，确保信息最新。</li>
+<li><strong>(可选)</strong>  <strong>​<code>apt search &lt;关键词&gt;</code>​</strong> ：查找不确定的软件包名称。</li>
+<li><strong>(可选)</strong>  <strong>​<code>apt show &lt;包名&gt;</code>​</strong> ：查看软件包详细信息以作确认。</li>
+<li>​<strong>​<code>sudo apt install &lt;包名&gt;</code>​</strong> ：执行安装。</li>
+<li>​<strong>​<code>command --version</code>​</strong>​ 或 <strong>​<code>dpkg -l | grep &lt;包名&gt;</code>​</strong> ：验证安装是否成功。</li>
+</ol>
+<h3 id="_42"><span id="20250929122655-m979dod" style="display: none;"></span>编译软件</h3>
+<p>我们经常遇到需要从源码编译的软件。关于具体如何编译安装应该看软件的文档，这里以MCScanX和HMMER做一个演示。</p>
+<p>先看MCScanX文档中的installation部分</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250929124021-7prx28v.png" /></p>
+<p>发现很简单，下载后解压，然后进入目录，输入make就完事了。还需要手动添加这个可执行文件的路径至环境变量，这样就可以在任何位置使用了。</p>
+<p>写过C或C++的同学应该了解make。但对于不了解的同学，若要从头讲明白make、makefile乃至cmake，就不是几个小时能完成的了。</p>
+<p>这里试着简单解释一下，不会涉及具体的语法。</p>
+<h4 id="_43">什么是编译？</h4>
+<p>我们可能已经习惯了使用Python。当我们运行一个Python脚本时，Python解释器会一行一行地读取我们的代码，并实时地把它们翻译成计算机能懂的指令来执行（其实是翻译为字节码，然后给python虚拟机运行，所以人们常说python速度慢）。这叫做<strong>解释执行</strong>。</p>
+<p>但我们现在接触的C或C++是<strong>编译型语言</strong>。我们用它们写的源代码（比如 <code>.c</code>​ 文件），计算机的CPU是看不懂的。因此，我们需要一个叫做<strong>编译器</strong>（Compiler）的程序，比如 <code>gcc</code>。</p>
+<p>编译的过程，就是我们让编译器这个工具，把我们写的全部源代码一次性地、完整地翻译成CPU能直接执行的二进制指令，也就是<strong>机器码</strong>。这个翻译的结果，就是一个<strong>可执行文件</strong>（在Linux上通常没有后缀，比如 <code>mcscanx</code>​；在Windows上就是<code>.exe</code>）。</p>
+<blockquote>
+<p>有可能你会问既然都是由cpu执行，为什么不同操作系统的软件不通用呢？这又是一个复杂的问题，感兴趣可以自行搜索</p>
+</blockquote>
+<p>这个翻译工作我们只需要做一次。之后，我们就可以直接运行这个生成好的可执行文件了，它的运行速度通常会快很多，因为它不需要再边读边翻译了。</p>
+<p>简单对比一下：</p>
+<ul>
+<li><strong>Python (解释)</strong> ：我们写代码 -&gt; 运行 -&gt; 解释器边读边翻译边执行。</li>
+<li><strong>C/C++ (编译)</strong> ：我们写代码 -&gt; <strong>编译</strong> -&gt; 生成可执行文件 -&gt; 运行可执行文件。</li>
+</ul>
+<h4 id="_44">链接</h4>
+<p>当然我们看MCScanX的源码发现里面有许多<code>.cc</code>文件（这是C++源码），这和我们刚刚写的Python不同：为什么不把所有代码都写在一个大文件里呢？这主要是出于以下几个原因：</p>
+<ol>
+<li><strong>组织和维护性</strong><br />
+    就像我们写一本书会分成不同的章节一样，把代码按功能拆分到不同文件里，能让整个项目结构清晰。比如有一个<code>file_io.c</code>​专门负责文件的读写，另一个<code>algorithm.c</code>​专门负责算法的实现，<br />
+    当我们需要修复一个关于文件读取的bug时, 我们就能立刻知道要去 <code>file_io.c</code> 这个文件里找问题，而不用在成千上万行的代码里大海捞针。这使得代码更容易阅读、理解和维护。</li>
+<li><strong>团队协作</strong><br />
+    如果所有代码都在一个文件里，两个程序员就很难同时对这个项目进行修改，他们会不断地覆盖对方的工作。而把代码拆分成模块后，小A可以专心修改 <code>blast_parser.c</code>​，小B可以同时优化 <code>algorithm.c</code>，他们互不干扰，大大提高了开发效率。</li>
+<li><strong>代码复用</strong><br />
+    我们可能会写一个非常通用的模块，比如一个用于解析特定格式文件的 <code>parser.c</code>​。这个模块写好后，不仅可以在当前项目中使用，未来我们开发另一个新软件时，也可能需要同样的功能。这时，我们就可以直接把 <code>parser.c</code>​ 和对应的头文件 <code>parser.h</code> 拷贝到新项目里复用，而不用重写代码。</li>
+<li><strong>提高编译效率</strong><br />
+    这一点非常关键，并且和 <code>make</code>​ 直接相关。编译器的工作量是和代码行数成正比的。如果我们只有一个包含10000行代码的巨型文件，那么每次哪怕我们只修改其中一个字符，都必须重新编译整个10000行代码，这可能会花费很长时间。<br />
+    但如果我们将项目拆分成20个每个500行的文件，当我们只修改了其中一个文件时，<code>make</code> 的智能之处就体现出来了：它只会重新编译那一个被修改的500行文件，然后进行链接。其他19个未被修改的文件，会直接使用上次编译好的结果。这个过程可能只需要几秒钟，极大地加快了我们的开发和调试周期。</li>
+</ol>
+<p>什么是“链接”，这些文件是怎样配合的？</p>
+<p>好了，既然我们把代码拆分到了几十个文件里，那么新的问题就来了：在 <code>main.c</code>​ 文件里，我们可能会调用一个在 <code>parser.c</code>​ 文件里定义的函数。当编译器单独处理 <code>main.c</code> 时，它并不知道那个函数的具体实现在哪里。这些独立的文件是如何最终协同工作，形成一个完整的程序的呢？</p>
+<p>答案就是<strong>链接 (Linking)</strong> 。</p>
+<p>我们可以把整个编译安装过程分解为两个主要阶段：<strong>编译</strong>和<strong>链接</strong>。</p>
+<blockquote>
+<p>完整来说对C或C++应该是：预处理、编译、汇编、链接。不过我们不用了解</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>第一阶段：编译 (Compilation)</strong> <br />
+    当我们运行 <code>make</code>​ 时，它会首先对<strong>每一个</strong> <code>.c</code>​ 源文件进行单独的编译。<br />
+    ​<code>gcc -c main.c -o main.o</code>​<br />
+    ​<code>gcc -c parser.c -o parser.o</code>​<br />
+    ​<code>gcc -c another_file.c -o another_file.o</code><br />
+    ...等等</p>
+<p>这个 <code>-c</code>​ 参数非常关键，它告诉编译器：“只做编译工作，不要进行链接。把这个源文件翻译成机器码，然后生成一个叫做‘目标文件’（Object File）的东西，它的后缀通常是 <code>.o</code>。”</p>
+<p>现在，我们就得到了一大堆 <code>.o</code>​ 文件。每一个 <code>.o</code>​ 文件都是一个半成品，是对应 <code>.c</code>​ 文件的机器码版本。它们就像一块块独立的乐高积木。<code>main.o</code>​ 可能知道它需要一个叫 <code>parse_file</code>​ 的功能，但它只有一个“接口”或“插槽”，并不知道这个功能的具体实现在哪里。而 <code>parser.o</code>​ 则包含了 <code>parse_file</code> 功能这个“凸起”，但它不知道谁会来使用它。
+2. <strong>第二阶段：链接 (Linking)</strong> <br />
+在所有源文件都被编译成目标文件后，<code>make</code>​ 就会调用一个叫做<strong>链接器 (Linker)</strong>  的程序（通常也是通过 <code>gcc</code>​ 命令来间接触发）。<br />
+​<code>gcc main.o parser.o another_file.o -o mcscanx</code></p>
+<p>链接器的工作就像是拼装乐高模型的最后一步。它会：</p>
+<ul>
+<li><strong>收集</strong>所有我们给它的 <code>.o</code> 文件。</li>
+<li><strong>解析符号</strong>：它会检查 <code>main.o</code>​ 里的那个 <code>parse_file</code>​ “插槽”，然后在所有其他的 <code>.o</code>​ 文件里寻找，直到在 <code>parser.o</code>​ 里找到了 <code>parse_file</code> 这个“凸起”。</li>
+<li><strong>地址重定位</strong>：找到之后，链接器就会把这个“插槽”和“凸起”严丝合缝地连接起来。在技术上，它会把函数调用的地址指向函数实现的实际地址。</li>
+<li><strong>合并</strong>：最后，它把所有这些已经连接好的、完整的机器码打包在一起，形成一个单一的、完整的、可以独立运行的可执行文件，也就是 <code>mcscanx</code>。</li>
+</ul>
+</li>
+</ol>
+<p>所以，整个流程是：</p>
+<p><strong>源代码 (.c 文件) -&gt; [编译器] -&gt; 一堆独立的半成品 (.o 文件) -&gt; [链接器] -&gt; 一个完整的可执行文件</strong></p>
+<p>通过这种“先分后合”的方式，我们既享受了把代码拆分成多个文件带来的各种好处，又能通过链接这个关键步骤，把所有分散的部分组合成一个能协同工作的强大程序。</p>
+<h4 id="make">为什么要用 <code>make</code>？</h4>
+<p>像MCScanX这样的软件，它的源代码可能由几十个 <code>.c</code>​ 文件组成。如果我们自己手动编译（也就是自己打那些命令），那将是一场灾难。我们需要对每一个 <code>.c</code>​ 文件单独执行编译命令，生成中间文件（<code>.o</code> 文件），最后再把所有这些中间文件“链接”成一个最终的可执行程序。</p>
+<p>这个过程不仅命令繁多，而且只要我们搞错一个顺序或漏掉一个文件，就会失败。为了把程序员从这种繁琐重复的工作中解放出来，就有了 <code>make</code> 这个自动化工具。</p>
+<blockquote>
+<p>学会省懒是很重要的</p>
+</blockquote>
+<h5 id="make-makefile">​<code>make</code>​ 和 <code>Makefile</code></h5>
+<ul>
+<li>
+<p>​<strong>​<code>Makefile</code>​</strong>​：我们可以把它看作一个说明书或一个脚本。软件的开发者已经为我们写好了这个文件。它里面详细定义了一系列规则，告诉 <code>make</code> 这个工具：</p>
+</li>
+<li>
+<p>我们的最终目标是什么？（比如，生成 <code>mcscanx</code> 这个可执行文件）。</p>
+</li>
+<li>要达成这个目标，需要先完成哪些准备工作？（比如，需要先把 <code>a.c</code>​, <code>b.c</code>​, <code>c.c</code>​ ... 分别编译成 <code>a.o</code>​, <code>b.o</code>​, <code>c.o</code> ...）。</li>
+<li>完成每一步具体需要执行什么命令？（比如，用 <code>gcc -c a.c -o a.o</code>​ 来生成 <code>a.o</code>）。</li>
+<li>​<strong>​<code>make</code>​</strong>​：这是一个程序。当我们在命令行里输入 <code>make</code>​ 时，它就会自动去当前目录下查找 <code>Makefile</code> 这个“说明书”，然后严格按照里面的规则，一步步执行所有必要的编译和链接命令。</li>
+</ul>
+<p>​<code>make</code>​还有一个非常智能的特点：它会检查文件的新旧。如果我们只修改了其中一个源代码文件，然后再次运行<code>make</code>，它只会重新编译我们修改过的那个文件以及与它相关的部分，而不会把整个项目从头到尾再编译一遍。这为我们节省了大量的时间。</p>
+<p>所以，当MCScanX的文档让我们直接运行 <code>make</code> 时，意思就是“我们已经为你准备好了完整的自动化编译脚本，你直接运行它就行了”。</p>
+<h4 id="cmake">为什么还需要 <code>cmake</code>？</h4>
+<p>现在，我们可能会遇到一个新问题。<code>Makefile</code>​ 这个说明书虽然好用，但它通常是针对某个特定的系统环境（比如特定版本的Linux）写的。如果我们的电脑是macOS，或者另一个Linux发行版，那么编译器名字、需要的库文件存放位置可能都不一样，直接用原来的<code>Makefile</code>就可能会出错。</p>
+<p>对于更复杂的软件，它们需要能在各种各样的系统上成功安装。为了解决这个问题，我们就需要 <code>cmake</code> 这样的工具。</p>
+<blockquote>
+<p>就是更加省懒</p>
+</blockquote>
+<ul>
+<li>​<strong>​<code>CMakeLists.txt</code>​</strong>​：在这种情况下，开发者不直接给我们 <code>Makefile</code>​。他们提供的是一个更通用的项目描述文件，叫做 <code>CMakeLists.txt</code>。这个文件只描述了项目本身的信息，比如“我们有哪些源文件”、“我们需要一个叫zlib的库”等等，但它不包含写死的、针对特定系统的编译命令。</li>
+<li>​<strong>​<code>cmake</code>​</strong>​：这个程序的作用，就是读取 <code>CMakeLists.txt</code>​，然后<strong>自动侦测我们当前的系统环境</strong>。它会检查我们的操作系统是什么、编译器装在哪里、zlib库又在哪里等等。在完成所有检查之后，它会根据这些信息，<strong>为我们量身定制一份适合我们当前系统的</strong> <strong>​<code>Makefile</code>​</strong>。</li>
+</ul>
+<p>所以，对于使用 <code>cmake</code> 的软件，我们通常的安装步骤就变成了两步：</p>
+<ol>
+<li>​<code>cmake .</code>​ (或 <code>cmake ..</code>​)：让<code>cmake</code>​检查我们的系统，并生成一份本地化的 <code>Makefile</code>。</li>
+<li>​<code>make</code>​：现在我们有了一个可用的 <code>Makefile</code>​，就可以用 <code>make</code> 来完成最终的编译工作了。</li>
+</ol>
+<p>一些老牌软件可能不用 <code>cmake</code>​，而是用一个叫 <code>./configure</code>​ 的脚本，它的功能和 <code>cmake</code>​ 几乎一样，也是先检查环境，再生成 <code>Makefile</code>。</p>
+<h4 id="_45">总结一下要点：</h4>
+<ul>
+<li><strong>编译</strong>：这是一个一次性的过程，我们用编译器把源代码转换成机器能直接运行的程序。</li>
+<li>​<strong>​<code>make</code>​</strong>​：一个自动化工具，它读取 <code>Makefile</code> 里的规则，帮我们完成所有编译和链接的命令（不用手输gcc了）。</li>
+<li>​<strong>​<code>Makefile</code>​</strong>​：一份为<code>make</code>准备的详细的编译说明书，规定了如何从源代码生成最终的程序。</li>
+<li>​<strong>​<code>cmake</code>​</strong>​ <strong>或</strong>  <strong>​<code>./configure</code>​</strong>​：更高级的工具，它们会先检查我们的系统环境，然后自动生成一份适合我们电脑的 <code>Makefile</code>。</li>
+</ul>
+<p>简单来说，程序员为了避免手打一堆<code>gcc ...</code>​出现了<code>make</code>​，它可以按照<code>makefile</code>​来自动运行这些<code>gcc ...</code>​。然后程序员又觉得手写<code>makefile</code>​麻烦，又发明了<code>cmake</code>​来自动生成<code>makefile</code>。</p>
+<p>作为使用者，我们的核心任务就是<strong>仔细阅读软件的文档</strong>，按照开发者给出的步骤操作。如果中途报错，通常是我们的系统里缺少了某个“依赖库”，根据错误提示把它安装好，问题一般就能解决。</p>
+<h4 id="_46">可能会问的一些问题</h4>
+<h5 id="_47">编译出来的是个啥？</h5>
+<p>我们编译完成的是可执行文件，也就是能直接运行的软件。很显然它与我们在windows上的不同。这是系统的差异，windows下的可执行文件为pe格式，后缀为exe。linux下的叫elf，一般没有后缀。具体有许多细节，感兴趣可以自行了解。所以一般情况下我们windows系统中的exe是没办法放到linux下运行的，反之亦然。</p>
+<h5 id="mv">想给它挪个位置，可以直接用mv吗？</h5>
+<p>具体得看文档。正如我们所见，编译的结果不是只生成一个可执行文件，可能有几个可执行文件，还有一些打配合的文件。所以不要直接移动这个可执行文件。</p>
+<h4 id="_48">（添加至环境变量）</h4>
+<p>在编译好软件之后我们可能还需要添加路径至环境变量。假如我们输入<code>ls</code>​这时会打印当前目录下的文件，这个命令可以使用因为我们的系统知道有<code>ls</code>这个东西，并且知道它在哪里。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># 例如输入which来查找ls在哪里</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>&gt;which<span class="w"> </span>ls
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>/usr/bin/ls
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="c1"># 可以看到在这个路径里</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="c1"># 再用file看一下ls到底是什么</span>
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>&gt;file<span class="w"> </span>/usr/bin/ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s2">&quot;,&quot;</span><span class="w"> </span><span class="s2">&quot;\n&quot;</span>
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>/usr/bin/ls:<span class="w"> </span>ELF<span class="w"> </span><span class="m">64</span>-bit<span class="w"> </span>LSB<span class="w"> </span>pie<span class="w"> </span>executable
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="w"> </span>x86-64
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="w"> </span>version<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>SYSV<span class="o">)</span>
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="w"> </span>dynamically<span class="w"> </span>linked
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="w"> </span>interpreter<span class="w"> </span>/lib64/ld-linux-x86-64.so.2
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="w"> </span>BuildID<span class="o">[</span>sha1<span class="o">]=</span>3eca7e3905b37d48cf0a88b576faa7b95cc3097b
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a><span class="w"> </span><span class="k">for</span><span class="w"> </span>GNU/Linux<span class="w"> </span><span class="m">3</span>.2.0
+</span><span id="__span-28-15"><a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a><span class="w"> </span>stripped
+</span><span id="__span-28-16"><a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a><span class="c1"># 可以看到是一个elf，也就是linux中的可执行文件</span>
+</span></code></pre></div>
+<h3 id="screen"><span id="20250929133505-bo7gqxh" style="display: none;"></span>Screen</h3>
+<p>这个值得单独拎出来说</p>
+<p>在我们进行一些长时间的处理时，为了不耽误事，我们可以将时间长的任务放在一个screen里让任务自己去跑，我们继续我们的工作。就如同windows里的窗口一样，可以将任务最小化放在状态栏里不耽误我们使用电脑。</p>
+<p>掌握三个参数就够了，剩下的可以自己探索</p>
+<p>​<code>screen -S screen_name</code>​直接输入<code>-S</code>​加一个名称就可以启动一个新的screen了。要退出需要按<code>ctrl+a</code>​再加上<code>Ctrl+d</code>​，要关闭这个screen按<code>Ctrl+a</code>​加<code>Ctrl+k</code>。</p>
+<p>​<code>screen -r screen_name</code>返回启动了的screen</p>
+<p>​<code>screen -ls</code>看看启动了多少screen</p>
+<blockquote>
+<p>本人有一次连接远程服务器跑一个时间很长的任务，启动了以后就去睡觉了。过一会电脑自动休眠了，然后网络就中断了，ssh也断了，服务器发现连接断了之后就自动暂停了任务。结果就是睡了一觉发现任务几乎没有进展，还得从头做。所以学会用screen是很重要的。</p>
+</blockquote>
+<h2 id="_49"><span id="20250930195549-sl4qgoe" style="display: none;"></span>正则表达式</h2>
+<p>这里只放一个参考表，会用的用自然会，不会的也不容易教（因为我也不喜欢用正则）。</p>
+<h5 id="_50"><span id="20250930201239-ra4egy2" style="display: none;"></span>[ ]</h5>
+<p>框住匹配的字符</p>
+<p>直接打字符，序列</p>
+<p>还有否定匹配</p>
+<p>a[asd]d，即匹配aad,asd,add</p>
+<p>a[a-z]d</p>
+<p>a[^ab]d</p>
+<h5 id="_51"><span id="20250930201239-ignzdnk" style="display: none;"></span>​<code>+*?</code></h5>
+<ul>
+<li>1至无限</li>
+</ul>
+<p>*  0至无限</p>
+<p>?   0或1</p>
+<h5 id="_52"><span id="20250930201239-o6m7wp5" style="display: none;"></span>​<code>.</code></h5>
+<p>匹配任何字符</p>
+<h5 id="_53"><span id="20250930201239-5ncwxax" style="display: none;"></span>{}</h5>
+<p>表示出现的次数</p>
+<p>be{2}r，即beer</p>
+<p>be{3,}r，即e出现三次以上</p>
+<p>be{1,3}r，区间，容易理解</p>
+<h5 id="_54"><span id="20250930201239-m72wpru" style="display: none;"></span>()</h5>
+<p>用来分组</p>
+<p>括号 <code>(?: )</code>: 非捕获分组</p>
+<h5 id="_55"><span id="20250930201239-07ubeje" style="display: none;"></span>插入符 ^:</h5>
+<p>匹配字符串的开始</p>
+<h5 id="_56"><span id="20250930201239-ylmo5cl" style="display: none;"></span>美元符号 $:</h5>
+<p>匹配字符串的结束</p>
+<h5 id="_57"><span id="20250930201239-35ea3dz" style="display: none;"></span>​<code>\</code></h5>
+<h6 id="w">​<code>\w</code></h6>
+<p>字母、数字和下划线</p>
+<h6 id="w_1">​<code>\W</code></h6>
+<p>非字母、数字和下划线，也就是其他符号</p>
+<h6 id="d">​<code>\d</code></h6>
+<p>匹配数字</p>
+<h6 id="d_1">​<code>\D</code></h6>
+<p>​<code>\s</code></p>
+<p>​<code>\S</code></p>
+<p>​<code>(?=)</code>​ <code>(?!)</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

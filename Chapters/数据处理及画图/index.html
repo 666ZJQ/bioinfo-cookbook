@@ -1,0 +1,2303 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="ZJQ">
+      
+      
+        <link rel="canonical" href="https://cookbook.jq666.top/Chapters/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E7%94%BB%E5%9B%BE/">
+      
+      
+        <link rel="prev" href="../%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/">
+      
+      
+        <link rel="next" href="../%E7%BC%96%E7%A8%8B%E5%92%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E7%9A%84%E5%9B%9E%E9%A1%BE/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>数据处理及画图 - 生物数据处理CookBook——以基因家族分析为例</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2a3383ac.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/image-size.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="生物数据处理CookBook——以基因家族分析为例" class="md-header__button md-logo" aria-label="生物数据处理CookBook——以基因家族分析为例" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            生物数据处理CookBook——以基因家族分析为例
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              数据处理及画图
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="生物数据处理CookBook——以基因家族分析为例" class="md-nav__button md-logo" aria-label="生物数据处理CookBook——以基因家族分析为例" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    生物数据处理CookBook——以基因家族分析为例
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    前言
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8A%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    环境配置及相关软件
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    文献阅读
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    数据处理及画图
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据处理及画图
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      识别并找出基因家族的基因
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="识别并找出基因家族的基因">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmmer" class="md-nav__link">
+    <span class="md-ellipsis">
+      下载并安装HMMER软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmm-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      查文献，下载hmm profile文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fasta" class="md-nav__link">
+    <span class="md-ellipsis">
+      从fasta文件中提取序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统发育树构建与绘制
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="系统发育树构建与绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      拟南芥参考序列的下载
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      多序列比对
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建系统发育树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构建系统发育树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单的示例：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      可视化系统发育树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      对基因进行分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      共线性分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="共线性分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      步骤
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blastp" class="md-nav__link">
+    <span class="md-ellipsis">
+      BLASTp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BLASTp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      建库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      比对
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcscanx" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCScanX搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCScanX搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      用法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择压计算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="选择压计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      基因结构分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基因结构分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      基因结构绘制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motif" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motif分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      我们可能需要对xml进行解析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      顺式作用元件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="顺式作用元件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      找到起始位点并提取上游序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plantcare" class="md-nav__link">
+    <span class="md-ellipsis">
+      PlantCARE分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      基因表达分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基因表达分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      蛋白质互作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="蛋白质互作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主要步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取蛋白列表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      在STRING数据库中进行预测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      导出网络文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘制网络图并分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BC%96%E7%A8%8B%E5%92%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E7%9A%84%E5%9B%9E%E9%A1%BE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    编程和计算机知识的回顾
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B0%8F%E6%8F%90%E7%A4%BA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    小提示
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%90%8E%E8%AE%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    后记
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      识别并找出基因家族的基因
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="识别并找出基因家族的基因">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmmer" class="md-nav__link">
+    <span class="md-ellipsis">
+      下载并安装HMMER软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmm-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      查文献，下载hmm profile文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fasta" class="md-nav__link">
+    <span class="md-ellipsis">
+      从fasta文件中提取序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统发育树构建与绘制
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="系统发育树构建与绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      拟南芥参考序列的下载
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      多序列比对
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建系统发育树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="构建系统发育树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单的示例：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      可视化系统发育树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      对基因进行分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      共线性分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="共线性分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      步骤
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blastp" class="md-nav__link">
+    <span class="md-ellipsis">
+      BLASTp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BLASTp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      建库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      比对
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mcscanx" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCScanX搜索
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCScanX搜索">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      用法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择压计算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="选择压计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      基因结构分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基因结构分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      基因结构绘制
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motif" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motif分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      我们可能需要对xml进行解析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      顺式作用元件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="顺式作用元件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_45" class="md-nav__link">
+    <span class="md-ellipsis">
+      找到起始位点并提取上游序列
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plantcare" class="md-nav__link">
+    <span class="md-ellipsis">
+      PlantCARE分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_46" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_47" class="md-nav__link">
+    <span class="md-ellipsis">
+      基因表达分析
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基因表达分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_48" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_49" class="md-nav__link">
+    <span class="md-ellipsis">
+      蛋白质互作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="蛋白质互作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_50" class="md-nav__link">
+    <span class="md-ellipsis">
+      目标
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_51" class="md-nav__link">
+    <span class="md-ellipsis">
+      材料与软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_52" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要步骤
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="主要步骤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_53" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取蛋白列表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      在STRING数据库中进行预测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_54" class="md-nav__link">
+    <span class="md-ellipsis">
+      导出网络文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_55" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘制网络图并分析
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_56" class="md-nav__link">
+    <span class="md-ellipsis">
+      推荐阅读
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">数据处理及画图</h1>
+<p>这是我们最重要、最耗时的步骤。下面的内容将以对WRKY和MADS基因家族的分析为例。</p>
+<p>通过对他人文章的阅读，我们了解到这项工作一般需要完成以下的内容：</p>
+<blockquote>
+<ol>
+<li><a href="#20250923211709-mmyz4ky">识别并找出基因家族的基因</a></li>
+<li><a href="#20250923211827-4vg5mnc">构建系统发育树并对基因进行分类</a></li>
+<li><a href="#20250923211846-je2dh6k">共线性分析，分析进化过程</a></li>
+<li><a href="#20250926135857-7er5j0s">基因结构分析</a></li>
+<li><a href="#20250926135914-ibghb6x">顺式作用元件</a></li>
+<li><a href="#20250926135927-bl0vzq1">基因表达分析</a></li>
+<li><a href="#20250926135927-ge7znkn">蛋白质互作</a></li>
+</ol>
+</blockquote>
+<p>我们也可以做</p>
+<h2 id="_2"><span id="20250923211709-mmyz4ky" style="display: none;"></span>识别并找出基因家族的基因</h2>
+<p>现在我们有完整的基因序列和蛋白质序列文件，如何从这些序列中找出所有属于某个基因家族的序列？</p>
+<p>这一部分会啰嗦一些，会涉及软件安装的每一步，后面的部分不会这么详细。</p>
+<h3 id="_3"><span id="20250923211743-i2h64n3" style="display: none;"></span>目标</h3>
+<p>从基因组文件中找到并提取出我们需要的序列</p>
+<h3 id="_4"><span id="20250923211743-14b4chx" style="display: none;"></span>材料与软件</h3>
+<ul>
+<li>HMMER</li>
+<li>编码蛋白质的fasta文件</li>
+</ul>
+<h3 id="_5"><span id="20250923211743-kirmfva" style="display: none;"></span>主要步骤</h3>
+<ol>
+<li>明确要找的基因家族</li>
+<li>下载HMMER软件</li>
+<li>找文献，找hmm profile文件</li>
+<li>从interPro网站上下载该基因家族对应的文件</li>
+<li>使用HMMER搜索序列</li>
+<li>从fasta文件中提取对应的序列</li>
+</ol>
+<h3 id="_6"><span id="20250926132232-9a2v5wa" style="display: none;"></span>原理</h3>
+<p>HMMER利用隐马尔科夫模型来识别结构域，从而找出基因家族序列。</p>
+<p>隐马尔科夫模型这是一个统计学上的概念，具体我也很难解释。这里试着体会一下</p>
+<p>马尔科夫链是一个描述状态序列的数学模型。它的核心思想是 “无记忆性”，即系统在某个时间点的状态，只取决于它在前一个时间点的状态，而与更早之前的状态无关。假设我们用一个简单的马尔可夫链来模拟天气。我们设定天气只有三种状态：晴天、多云、雨天。</p>
+<ul>
+<li>如果今天下雨，明天是晴天的概率可能很低，而明天继续下雨的概率会比较高。</li>
+<li>如果今天晴天，明天多云的概率可能比较高。</li>
+</ul>
+<p>这个状态之间的转换概率，我们可以用一个“状态转移矩阵”来表示。比如：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">(今天) \ (明天)</th>
+<th style="text-align: left;">晴天</th>
+<th style="text-align: left;">多云</th>
+<th style="text-align: left;">雨天</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>晴天</strong></td>
+<td style="text-align: left;">0.7</td>
+<td style="text-align: left;">0.2</td>
+<td style="text-align: left;">0.1</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>多云</strong></td>
+<td style="text-align: left;">0.3</td>
+<td style="text-align: left;">0.4</td>
+<td style="text-align: left;">0.3</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>雨天</strong></td>
+<td style="text-align: left;">0.1</td>
+<td style="text-align: left;">0.4</td>
+<td style="text-align: left;">0.5</td>
+</tr>
+</tbody>
+</table>
+<p>这个模型很简单，因为状态（天气）是可以直接观察到的。</p>
+<p>这时要开始“隐”了，例如我们看不到天气，但我们能知道某人是否去晨跑了。他去不去晨跑和天气有如下关系：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">隐藏状态 (天气)</th>
+<th style="text-align: left;">跑</th>
+<th style="text-align: left;">没跑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>晴天</strong></td>
+<td style="text-align: left;">0.8</td>
+<td style="text-align: left;">0.2</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>多云</strong></td>
+<td style="text-align: left;">0.7</td>
+<td style="text-align: left;">0.3</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>雨天</strong></td>
+<td style="text-align: left;">0.1</td>
+<td style="text-align: left;">0.9</td>
+</tr>
+</tbody>
+</table>
+<p>这样我们能从他这几天跑步情况推断出这几天的天气。</p>
+<p>在基因序列中也是同样的原理，只是由原先的时间关系变为了按碱基（氨基酸残基）顺序的关系</p>
+<p>这样我们观测到的是一串碱基，但我们要推断出序列背后的含义。例如我们可以通过观测到有一串碱基，然后一算发现序列对应着TATA-box。当然这么做要现有一个对TATA-box的认识，也就是我们下载的HMM profile文件。</p>
+<p>有人可能会疑惑，在上面的案例中，我们是一个状态（天气）对应一个观察（跑步），但是序列长度是不固定的，这又是怎么计算的呢？我本人水平有限，也没有想明白，如果有兴趣大家可以自己探索，参考<a href="#20250926135536-73s40w4">推荐阅读</a>部分的书。</p>
+<h3 id="hmmer"><span id="20250923211743-i1pu5n2" style="display: none;"></span>下载并安装HMMER软件</h3>
+<p>这个软件需要从源码编译，windows系统下非常麻烦，建议使用linux系统。作为第一个要自己编译的软件，这里给一个步骤，后续要自己编译的软件都差不多。</p>
+<blockquote>
+<p>试了一下，在windows下几乎无法完成，不用尝试了。</p>
+</blockquote>
+<p>直接搜索可以找到对应的网站：<a href="http://hmmer.org/">http://hmmer.org/</a></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250909215814-51st3kh.png" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250909215901-tzp2u56.png" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910105428-006h56u.png" /></p>
+<p>下载完成后，解压</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910110408-a298ay2.png" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910113115-5qf1jtl.png" /></p>
+<p>运行<code>./configure</code></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910113218-udt952g.png" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910113236-i2qw4vh.png" /></p>
+<p>​<code>make install</code>安装</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910113325-iac3d0c.png" /></p>
+<p>等待结束就安装完成了</p>
+<p>关于如何更改路径以及其它问题都应该看文档</p>
+<h3 id="hmm-profile"><span id="20250923211743-zd0m1vp" style="display: none;"></span>查文献，下载hmm profile文件</h3>
+<p>hmmer是通过结构域来搜索的，所有我们要找到对应的描述文件</p>
+<p>通过查文献的方式，看他们使用的是哪些文件。这一步应该在<a href="../%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/">“阅读文献”</a>步骤中完成，这里再重复一下</p>
+<p>搜索相关的文章</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114037-cblfys6.png" /></p>
+<p>按时间排序</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114139-0nsb6a8.png" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114249-xqg32sx.png" /></p>
+<p>看到他们用了编号为：PF03106</p>
+<p>打开interPro网站下载结构域的描述文件</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114428-6qnbe8x.png" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114503-2aa9kf7.png" /></p>
+<p>看到是WRKY binding domain，没错</p>
+<p>下载下来就可以了</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114606-b3wobaz.png" /></p>
+<h3 id="_7"><span id="20250923211743-cbgc6k4" style="display: none;"></span>搜索序列</h3>
+<p>最完整的用法应该查文档</p>
+<p>当然看文档很烦人，作者自己也不愿意看。文档中甚至还在教我们如何避免看文档</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114928-ix111mu.png" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910114945-bgqxep3.png" /></p>
+<p>我们只需要知道怎么用就行了，用<code>-h</code>看一下</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910115114-odfb5dv.png" /></p>
+<p>这里输入<code>hmmsearch -o hmm_result.txt PF03106.hmm.gz wfs_pep.fa</code></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910115341-awhybs1.png" /></p>
+<p>结果长这样：</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910115448-xet59qj.png" /></p>
+<p>我们可以选择保留哪些</p>
+<p>写一个简短的脚本提取这些基因编号</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910120642-g5j9ijx.png" /></p>
+<p>运行一下</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910120811-9k7u1zf.png" /></p>
+<h3 id="fasta"><span id="20250923211743-8iqutmr" style="display: none;"></span>从fasta文件中提取序列</h3>
+<p>有了列表提取序列就很简单了，同样编写一个简单的脚本</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910122227-m0d35uc.png" /></p>
+<p>运行一下</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250910122315-0homt0m.png" /></p>
+<h3 id="_8"><span id="20250926135536-73s40w4" style="display: none;"></span>推荐阅读</h3>
+<p>Biological sequence analysis, Richard Durbin et al., Cambridge University Press</p>
+<h2 id="_9"><span id="20250923211827-4vg5mnc" style="display: none;"></span>系统发育树构建与绘制</h2>
+<p>系统发育树（Phylogenetic Tree）是研究物种进化关系的重要工具。它通过分析不同物种或基因之间的序列相似性来推断它们的进化历史。下面我们将详细介绍如何构建和绘制系统发育树。</p>
+<p><img alt="Figure 1" src="https://images.jq666.top/cookbook/2025/Figure%201-20251001185207-r6wa0i5.png" /></p>
+<h3 id="_10"><span id="20250929153310-yn43o70" style="display: none;"></span>目标</h3>
+<ul>
+<li>构建一个系统发育树</li>
+<li>对基因家族进行分类</li>
+<li>绘制美观且易于理解的系统发育树图形</li>
+</ul>
+<h3 id="_11"><span id="20250929153310-ea4tfz3" style="display: none;"></span>材料与软件</h3>
+<ul>
+<li>MAFFT（多序列比对）</li>
+<li>R及ggtree包（绘制系统发育树）</li>
+<li>蛋白质序列文件</li>
+</ul>
+<h3 id="_12"><span id="20250929153310-ekpnujm" style="display: none;"></span>主要步骤</h3>
+<ol>
+<li>对所有序列进行多序列比对</li>
+<li>构建系统发育树</li>
+<li>参考其它研究对基因进行分类</li>
+<li>绘图</li>
+</ol>
+<h3 id="_13"><span id="20250929153310-qtens5g" style="display: none;"></span>原理</h3>
+<p>系统发育树的构建基于分子数据（如DNA或蛋白质序列），通过比较这些序列之间的差异来估计它们之间可能存在的亲缘关系。常用的算法包括但不限于最大似然法(Maximum Likelihood, ML)、邻接法(Neighbor Joining, NJ)等。每种方法都有其优缺点，在实际应用时需根据具体情况选择最合适的一种。</p>
+<p>邻接法（NJ）比较快，适用于大数据集。它根据序列间的遗传距离创建树形结构，通常作为初步探索性分析的一部分。</p>
+<p>最大似然法（ML）这种方法虽然计算复杂度较高，但能够提供更为精确的结果。它假设存在一个最佳模型来解释观察到的数据，并尝试找到最符合该模型的树拓扑结构。</p>
+<h3 id="_14"><span id="20250930095021-jxdljcj" style="display: none;"></span>拟南芥参考序列的下载</h3>
+<p>我们可以在TAIR数据库中下载拟南芥的参考序列。但是自从2025年的某次更新后，TAIR不再能随意访问了，需要证明科研用途。有两个验证方法，一是注册一个账号（比较麻烦），二是使用校园网环境访问（现在只能用webvpn）。</p>
+<p>找到了编号之后可以在这里批量下载：<a href="https://v2.arabidopsis.org/tools/bulk/sequences/index.jsp">TAIR - Bulk Download - Sequences</a></p>
+<blockquote>
+<p>webvpn这个东西很大概率没法通过机器人验证，反馈了也没有解决。没关系不影响TAIR的使用。</p>
+</blockquote>
+<h3 id="_15"><span id="20250929153310-44jiq9r" style="display: none;"></span>多序列比对</h3>
+<p>首先需要将所有感兴趣的序列进行多序列比对，以找出它们之间的同源区域。这一步骤对于确保系统发育树的准确性至关重要。</p>
+<p>下载并安装MAFFT。</p>
+<p>打开终端或命令行界面，输入以下命令：</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mafft<span class="w"> </span>input.fasta<span class="w"> </span>&gt;<span class="w"> </span>aligned.fasta
+</span></code></pre></div>
+<p>其中<code>input.fasta</code>​是准备好的序列文件，<code>aligned.fasta</code>则是输出的比对结果。</p>
+<h3 id="_16"><span id="20250929153310-1cwjzih" style="display: none;"></span>构建系统发育树</h3>
+<p>这里使用iqtree构建系统发育树，iqtree官网有各个平台的安装包。具体的使用看文档。</p>
+<p>ClustalX也可以，有图形化界面一看就懂。</p>
+<p>它们的建树方法不同，iqtree使用的是最大似然法，clustalx使用的是邻接法。</p>
+<blockquote>
+<p>还有MEGA也可以建树，但是我已经遇到过不止三个人windows下的mega崩溃了，所以谨慎使用。</p>
+</blockquote>
+<h4 id="_17">简单的示例：</h4>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>iqtree<span class="w"> </span>-s<span class="w"> </span>example.aln<span class="w"> </span>-nt<span class="w"> </span><span class="m">2</span><span class="w"> </span>-pre<span class="w"> </span>tree1
+</span></code></pre></div>
+<p>-s 即为输入文件，支持很多格式</p>
+<p>-nt 线程数</p>
+<p>-pre 输出文件的前缀</p>
+<p>输出如下：</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>.
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├──<span class="w"> </span>example.phy
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├──<span class="w"> </span>tree1.bionj
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>├──<span class="w"> </span>tree1.ckp.gz
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├──<span class="w"> </span>tree1.iqtree
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>├──<span class="w"> </span>tree1.log
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├──<span class="w"> </span>tree1.mldist
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>├──<span class="w"> </span>tree1.model.gz
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>└──<span class="w"> </span>tree1.treefile
+</span></code></pre></div>
+<p>其中treefile就是我们构建好的树</p>
+<h3 id="_18"><span id="20250929153310-x2x35um" style="display: none;"></span>可视化系统发育树</h3>
+<p>使用R和ggtree包绘制系统发育树，ggtree的具体用法，应当自己查看文档。</p>
+<p>如果不想用R，<a href="https://itol.embl.de/">iTOL</a>这个网站也可以绘图，有图形化的操作界面。</p>
+<h3 id="_19"><span id="20250930094931-nnj3qef" style="display: none;"></span>对基因进行分类</h3>
+<p>参考已有的研究，对不同分支的基因进行分类。一般来说都是按照分支进行划分，比如以拟南芥为参考进行划分。</p>
+<h3 id="tips">Tips</h3>
+<p>在用iqtree建树时可能会遇到下面的情况：</p>
+<p>显示gap过多可能会影响建树的结果。</p>
+<p>这关于种情况本人查看了许多中文的英文的论坛。有些人认为gap本身也代表着进化的信息，有些人认为如果某个位点gap比例过大则可以直接删除这一列。</p>
+<p>如果需要删除，这里介绍一个工具：<a href="https://trimal.readthedocs.io">trimAl</a></p>
+<h3 id="_20"><span id="20250926135210-1jj8jlf" style="display: none;"></span>推荐阅读</h3>
+<p>《分子进化与系统发育》(美) Masatoshi Nei, Sudhir Kumar著 吕宝忠, 钟扬, 高莉萍等译。学校图书馆有</p>
+<blockquote>
+<p>开心一下：</p>
+<p>看这么长时间，应该也累了吧。</p>
+<p>众所周知，康德是一位著名的哲学家，著有《纯粹理性批判》《实践理性批判》等。</p>
+<p>康德在有一段时间在柯尼斯堡任教（就是那个七桥问题的柯尼斯堡）且生活十分有规律，每天准时下午3点半出门散步。以至当地的居民在他每天散步经过时来对表。但有一次康德在3点半没有出现，因为读卢梭的《爱弥儿》入迷，以致错过了散步的时间。结果导致当地的居民纷纷产生恐慌，在一个星期之内竟拿不定主意如何校对时间。</p>
+<p>PS. 本人高中时买过商务印书馆出版的《纯粹理性批判》，想要拜读一下，可惜完全看不懂。但我认为不是我的问题，因为我翻了一下序言发现这个版本竟然是100多年前（清朝还在）翻译的，一整本半文言，真的看不懂。</p>
+</blockquote>
+<h2 id="_21"><span id="20250923211846-je2dh6k" style="display: none;"></span>共线性分析</h2>
+<p>基因组在演化过程中经历了许多不同的变异，包括基因组复制过程中的 DNA 突变、染色体重组、重复元件转座与插入、基因组及基因水平多倍化、横向基因转移等。</p>
+<p>共线性分析的核心意义在于，它提供了一个宏观的、结构性的视角来解读基因组的演化历史和基因的功能关联。它通过考察基因在染色体上的排列顺序和邻里关系，为我们揭示了更大尺度上的进化事件。比如鉴定全基因组复制（WGD）和片段复制事件，能帮助我们重构物种演化过程中染色体的断裂、重组和融合等结构变异历史。更重要的是，保守的共线性关系是判断不同物种间基因是否为直系同源基因（因物种分化而来，功能更可能一致），这对于在新物种中准确预测基因功能、构建可靠的进化树以及开展比较基因组学研究至关重要。</p>
+<p>选择压计算（计算Ka/Ks比值）是通过比较改变氨基酸的非同义突变（Ka）和不改变氨基酸的同义突变（Ks）的速率，我们可以直接推断一个基因所承受的进化压力类型。<strong>Ka/Ks &lt; 1</strong> 意味着基因受到<strong>纯化选择</strong>，表明其功能至关重要，任何有害变异都会被清除（也就是能不变就不变）；Ka/Ks = 1表明了中性选择；而 <strong>Ka/Ks &gt; 1</strong> 则揭示了基因正在经历<strong>正选择</strong>，意味着新的突变带来了适应性优势，被自然选择所青睐。</p>
+<h3 id="_22"><span id="20250923211900-kdp39yz" style="display: none;"></span>目标</h3>
+<p>识别基因的共线性关系并计算选择压，绘图</p>
+<h3 id="_23"><span id="20250923212404-0bx3v9u" style="display: none;"></span>材料与软件</h3>
+<ul>
+<li>MCScanX（共线性识别软件）</li>
+<li>BLASTp</li>
+<li>KaKs_Calculator（选择压计算软件）</li>
+<li>PAL2NAL（多肽核酸相对应脚本）</li>
+<li>蛋白质序列文件</li>
+<li>核酸序列</li>
+<li>gff注释文件</li>
+<li>还需要自己写一点程序处理数据</li>
+</ul>
+<h3 id="_24"><span id="20250923212428-6r3qpgp" style="display: none;"></span>步骤</h3>
+<ol>
+<li>使用BLASTp对所有的蛋白质进行比对</li>
+<li>利用MCScanX识别共线性</li>
+<li>绘图</li>
+<li>选择压计算</li>
+</ol>
+<h4 id="blastp">BLASTp</h4>
+<p>blast是一个双序列比对工具，将输入的序列与数据库中的序列进行对比，给出相似度得分</p>
+<p>NCBI提供了在线的工具，当然我们要在基因组内部进行比较，所以不使用在线工具，需要自己本地运行。</p>
+<h5 id="_25">安装</h5>
+<p>很简单，应该不用专门说明。</p>
+<h5 id="_26">建库</h5>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">makeblastdb</span> <span class="n">-in</span> <span class="n">inputfile</span> <span class="n">-dbtype</span> <span class="p">{(</span><span class="n">nucl</span><span class="p">)</span> <span class="n">or</span> <span class="p">(</span><span class="n">prot</span><span class="p">)}</span> <span class="n">-out</span> <span class="n">database_name</span>
+</span></code></pre></div>
+<p>显而易见，dbtype有两种（核酸和蛋白嘛）</p>
+<h5 id="_27">比对</h5>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">blast</span><span class="no">[np]</span> <span class="n">-query</span> <span class="n">-db</span> <span class="n">-out</span> <span class="n">-outfmt</span> <span class="n">6</span> <span class="n">-num_threads</span>
+</span></code></pre></div>
+<p>这里选择输出格式为6，会输出一张表格</p>
+<p>输出文件一共有12列：</p>
+<p><strong>第1列：</strong> 输入序列的名称。</p>
+<p><strong>第2列：</strong> 比对到的目标序列名称。</p>
+<p><strong>第3列：</strong> 序列相似度。</p>
+<p><strong>第4列：</strong> 比对的有效长度。</p>
+<p><strong>第5列：</strong> 错配数。</p>
+<p><strong>第6列：</strong> gap数。</p>
+<p><strong>第7-8列：</strong> 输入序列比对上的起始和终止位置。</p>
+<p><strong>第9-10列：</strong> 比对到目标序列的起始和终止位置。</p>
+<p><strong>第11列：</strong> e-value。</p>
+<p><strong>第12列：</strong> 比对得分。</p>
+<h5 id="tips_1">Tips</h5>
+<p>因为是对全基因组进行比较，所以会略微耗时</p>
+<h4 id="mcscanx">MCScanX搜索</h4>
+<p>这个软件需要从源码编译</p>
+<p>具体查看文档：<a href="https://github.com/wyp1125/MCScanX">GitHub - wyp1125/MCScanX: MCScanX: Multiple Collinearity Scan toolkit X version. The most popular synteny analysis tool in the world!</a></p>
+<h5 id="_28">用法</h5>
+<p>​<code>MCScanX  dir/xyz</code></p>
+<p>这里要注意，blast的结果要命名为<code>xyz.blast</code>​，gff注释文件也要有相同的文件名<code>xyz.gff</code>否则软件无法识别。</p>
+<p>结果有三个：<code>xyz.collinearity</code>​、<code>xyz.tandem</code>​和一个文件夹<code>xyz.html</code></p>
+<p>其中collinearity是共线性结果，tandem为片段重复，html文件里输出了每条染色体上的共线性情况。</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250924115226-3erbi03.png" title="xyz.collinearity文件" /></p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250924115301-yrom5h1.png" title="xyz.tandem文件" /></p>
+<p>由于这是对全基因组的筛查，所以我们还需要自己编写程序，将它处理以下。</p>
+<h5 id="_29">概念</h5>
+<p>共线性在英文里有许多说法st和collinearity。概念上略有区别。</p>
+<p>其中可以分为片段重复(segmental duplication)和串联重复(tandem duplication)。</p>
+<p>串联重复的概念似乎就是该软件的作者提出的。基因在染色体上的距离小于200kb就为串联重复。</p>
+<p>串联重复和片段重复在进化上的功能不同，具体可以查阅相关书籍。</p>
+<h4 id="_30">绘图</h4>
+<p>R包circlize可以完成这种环形图的绘制，具体用法也要查看该包的文档。</p>
+<h4 id="_31">选择压计算</h4>
+<p>Ka（非同义突变率）：指基因序列中导致氨基酸改变的突变率。</p>
+<p>Ks（同义突变率）：指基因序列中不改变氨基酸的突变率。</p>
+<p>Ka/Ks 比值：通过比较 Ka 和 Ks，判断基因是否受到选择压力。</p>
+<p>Ka/Ks比值的含义：</p>
+<ul>
+<li>Ka/Ks &lt; 1：纯化选择（负选择），表明非同义突变对生物体有害，被自然选择淘汰。</li>
+<li>Ka/Ks = 1：中性进化，表明非同义突变和同义突变以相同速率积累，不受选择压力影响。</li>
+<li>Ka/Ks &gt; 1：正选择，表明非同义突变对生物体有利，被自然选择保留。</li>
+</ul>
+<h5 id="_32">计算</h5>
+<blockquote>
+<p>这一步需要我们自己写许多脚本，相当麻烦。</p>
+</blockquote>
+<p>显然我们需要先找到核酸，然后才能计算它们的突变，所以要使用PAL2NAL找到蛋白质对应的核酸序列。</p>
+<p>用法很简单，使用<code>-h</code>看一下帮助就会了。</p>
+<p>这样我们就有了外显子的核酸序列</p>
+<p>这里使用KaKs_Calculator计算，该软件有Windows版本，而且有图形界面。</p>
+<p>该软件需要一种独特的文件格式<code>.axt</code>作为输入。</p>
+<p>格式如下：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>VaWRKY70-2-VaWRKY70-3
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ATGGACTCCTCCACTTCGCCGGAGAACTTATTCGGTGATCGGAAC...
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>ATGGACAATTCC---TCGCCGGAGAACTTGTTCGGTGACCGGAAC...
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>VaMADS01-VaMADS56
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>---------------------ATGAAAAAGATAGAGAACTTAACA...
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>ATGGGTCGTGTTAAGCTTCAAATAAGGAAGATAGAAAACACGACA...
+</span></code></pre></div>
+<p>一行基因对的名称和两行序列</p>
+<p>所以这里需要我们自行编写程序</p>
+<ol>
+<li>将共线性基因对从全基因组的结果中筛出来</li>
+<li>将它们的蛋白质序列找到</li>
+<li>每对（两条）序列进行多序列比对</li>
+<li>根据原始的核酸序列找到蛋白序列对应的核酸（使用pal2nal）</li>
+<li>合并这些结果，并处理为KaKs_Calculator可用的格式</li>
+</ol>
+<p>然后就可以计算了</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250924124650-xx6xrt0.png" /></p>
+<h3 id="_33"><span id="20250924124653-7ubhfxe" style="display: none;"></span>推荐阅读</h3>
+<p>《植物基因组学》樊龙江著，ISBN：9787030633132</p>
+<blockquote>
+<p>开心一下：</p>
+<p>这一部分可以说是最麻烦的了，因为需要我们自己做相当多的工作。如果你做完了，恭喜你，可以放松一下。</p>
+<p>因为谈恋爱弄丢了自己老爹诺奖的小故事（道听途说，不保真）：</p>
+<p>众所周知，DNA的双螺旋是沃森（Watson）和克里克（Crick）发现的。但是有一位大佬也差一点提前发现了该结果，他就是两次独立获得诺贝尔奖、化学键理论的提出者鲍林(Pauling)。鲍林利用自己提出的化学键理论，成功计算出了α-螺旋的结构。在成功计算出α-螺旋的结构后，他也有兴趣进一步探究DNA的结构。当罗莎琳德·富兰克林（Rosalind Frankling， 这也是一位大佬，只可惜去世得比较早，不然也能拿奖）拍出了DNA的X射线衍射图谱之后，鲍林也想去看一看。以他的水平绝对一看就能立马明白这是一个双螺旋，但当时他的年纪大了，于是他就派他的儿子去那边看看。但是他的儿子竟然迷上了富兰克林的一位女助手，天天想着怎么和她发展关系，于是他不仅没有完成他父亲交给他的打探消息的任务，还把这边的情况给透露了。在这期间，沃森和克里克成功拿到了该结果，并且对其进行了分析，最终成功提出了DNA双螺旋的结构（然后我们都知道，得奖了）。</p>
+<p>这个故事告诉我们工作要专心。</p>
+<p><img alt="" src="https://images.jq666.top/cookbook/2025/image-20250930203019-q7827p3.png" /><img alt="" src="https://images.jq666.top/cookbook/2025/image-20250930203234-mv5fbm9.png" /><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250930203324-luzhon8.png" /></p>
+</blockquote>
+<h2 id="_34"><span id="20250926135857-7er5j0s" style="display: none;"></span>基因结构分析</h2>
+<p>众所周知，基因不是直接翻译为蛋白质的，含有内含子外显子等，所以我们要把它绘制出来。有什么用呢？一是看到结构上的差异，这种差异可以支持我们的预测和猜想。例如我们之前将基因进行了分组，现在发现同组基因的结构相似，证明了我们分组的正确性；对于不同组，我们发现有的组内含子多，有的组几乎没有，验证了一定进化上的关系。</p>
+<p>motif和domain是处于二级结构和三级结构中间的一种结构，有的生物化学书或是专业词典上对它们有明确的定义。我觉得最重要的是认识到domain一般比较长，有定名，有一定的独立的功能；而motif较短，是对一组序列进行分析得出的共有的相似的序列，所以没有固定的名称。在实际分析中我们可以观察到一些整齐出现的motif，这时可以猜测这些motif可能组成了某些domain因而有一定的作用。</p>
+<h3 id="_35"><span id="20250927100049-y6qy3kp" style="display: none;"></span>目标</h3>
+<p>绘制基因外显子内含子结构图和表示motif的结构图</p>
+<p><img alt="Figure 3" src="https://images.jq666.top/cookbook/2025/Figure%203-20250927101227-8tuxlf5.png" /></p>
+<p><img alt="Figure 4" src="https://images.jq666.top/cookbook/2025/Figure%204-20250927101258-vbc4yix.png" /></p>
+<h3 id="_36"><span id="20250927100132-0e0ty8c" style="display: none;"></span>材料与软件</h3>
+<ul>
+<li>gff注释文件</li>
+<li>R及gggenes包</li>
+<li><a href="https://gsds.gao-lab.org/">gsds网站</a>（绘制内含子外显子，也可以用R绘制，我还没有尝试）</li>
+<li><a href="https://meme-suite.org/meme/">MEME suit</a>（motif预测，按道理来说motif只是一段重复出现的相似度比较高的序列，自己写一个查找软件也是可以的）</li>
+</ul>
+<h3 id="_37"><span id="20250927100805-hfvpavr" style="display: none;"></span>主要步骤</h3>
+<ol>
+<li>处理现有数据，上传gsds绘图</li>
+<li>上传序列至MEME-suit，下载结果</li>
+<li>处理结果数据，绘图</li>
+</ol>
+<h3 id="_38"><span id="20250930205830-wdpvmkh" style="display: none;"></span>基因结构绘制</h3>
+<p>这一步相当简单，看一下网站上的格式要求，简单用R处理一下就可以了。甚至可能不需要处理，直接用基因家族的gff注释就可以了。</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20250930210007-sdh5l9x.png" /></p>
+<h3 id="motif"><span id="20250930210040-59motyr" style="display: none;"></span>Motif分析</h3>
+<p>很不巧，写着一部分的时候meme在维护，无法展示图片。</p>
+<p>不过同样也很简单，上传一下序列就可以了。下载格式应该有xml格式和txt格式</p>
+<h3 id="xml"><span id="20250930210249-8c4xib3" style="display: none;"></span>我们可能需要对xml进行解析</h3>
+<p>待完善</p>
+<h3 id="_39"><span id="20250930210510-1x2umf0" style="display: none;"></span>绘图</h3>
+<p>然后用<code>gggenes</code>​绘制就可以了，Logo图用<code>ggseqlogo</code>，文档需要自己看。数据处理为什么格式，也要自己根据绘图来调整</p>
+<h3 id="_40"><span id="20250930210706-0chei08" style="display: none;"></span>推荐阅读</h3>
+<p><a href="https://r4ds.hadley.nz">R for Data Science</a>, 2nd edition, Hadley Wickham</p>
+<p><a href="https://bookdown.org/wangminjie/R4DS/">数据科学中的R语言</a>，王敏杰</p>
+<h2 id="_41"><span id="20250926135914-ibghb6x" style="display: none;"></span>顺式作用元件</h2>
+<p>我们都知道，顺式作用元件就是对基因有调控功能的一段序列，位于基因上游。它们和反式作用因子结合调控基因转录。种类有启动子、增强子、沉默子等。通过对顺式作用元件的分析，我们可以预测被其调控的基因参与了哪些生物学过程。</p>
+<h3 id="_42"><span id="20250930192222-8xy71zd" style="display: none;"></span>目标</h3>
+<p>绘制一幅图</p>
+<p><img alt="Figure 7" src="https://images.jq666.top/cookbook/2025/Figure%207-20250930192828-pwwxg3z.png" /></p>
+<p>这里我用一幅热图表示分析结果，有的文章里会将顺式作用元件在上游的位置表示出来，我觉得热图更能说明情况。</p>
+<h3 id="_43"><span id="20250930192940-hy68i1v" style="display: none;"></span>材料与软件</h3>
+<ul>
+<li>基因组文件</li>
+<li>基因组注释文件</li>
+<li><a href="https://bioinformatics.psb.ugent.be/webtools/plantcare/html/">PlantCARE网站</a>（搜索顺式作用元件）</li>
+<li>R及complexheatmap包（绘制热图）</li>
+<li>自己写一个小程序提取上游序列</li>
+</ul>
+<h3 id="_44"><span id="20250930193107-luvyx1u" style="display: none;"></span>主要步骤</h3>
+<ol>
+<li>从注释文件中找到基因的起始位点</li>
+<li>提取起始位点上游2000bp序列</li>
+<li>提交至plantcare分析并下载结果</li>
+<li>整理数据，绘图</li>
+</ol>
+<h3 id="_45"><span id="20250930193705-jj8xe95" style="display: none;"></span>找到起始位点并提取上游序列</h3>
+<p>这一步可以说是最麻烦的，因为我们要自己实现：读取并解析gff注释-&gt;找到该基因的起始位点-&gt;读取序列文件-&gt;找到上游的序列-&gt;提取上游序列</p>
+<p>这也是锻炼我们编程水平</p>
+<h3 id="plantcare"><span id="20250930201311-g4evycq" style="display: none;"></span>PlantCARE分析</h3>
+<h3 id="_46"><span id="20250930201321-fnkk1bz" style="display: none;"></span>推荐阅读</h3>
+<blockquote>
+<p>开心一下：</p>
+<p>之前提到过柯尼斯堡七桥问题，后来欧拉把它抽象为图论的数学问题，然后得出了不能一次走完结论（即不能一笔画）。但我认为作为一个现实问题，七桥问题还是有特殊解的，就是沿河而上，跨过河流的源头再返回，OK了。</p>
+<p><img alt="" src="https://images.jq666.top/2025/%E4%B8%83%E6%A1%A5%E9%97%AE%E9%A2%98-20250930215110-roabbu5.png" /></p>
+</blockquote>
+<h2 id="_47"><span id="20250926135927-bl0vzq1" style="display: none;"></span>基因表达分析</h2>
+<p>这里值得注意，"expression pattern" 和 "expression profile" 都叫做“表达模式”，但是通过阅读文章，profile似乎表示处理上的不同（也就是分为对照组和实验组，进行不同的处理），pattern表示时间上的不同（不同发育阶段）。</p>
+<p>这一步可以通过绘图来观察出不同基因的表达。</p>
+<h3 id="_48"><span id="20250927104432-nima7b5" style="display: none;"></span>目标</h3>
+<p>绘制热图</p>
+<p><img alt="Figure 9" src="https://images.jq666.top/cookbook/2025/Figure%209-20250927104458-uebzz60.png" /></p>
+<p>这个任务用Excel也能完成，很简单。</p>
+<h2 id="_49"><span id="20250926135927-ge7znkn" style="display: none;"></span>蛋白质互作</h2>
+<p>蛋白质-蛋白质相互作用（PPI）网络是一种用于描绘一组蛋白质之间相互作用关系的分析方法。由于蛋白质间的相互作用关系错综复杂，每个蛋白质被视为网络中的一个节点，而蛋白质之间的相互作用则通过连线来表示，从而形成了复杂的网状结构。</p>
+<p>PPI网络分析通过识别在PPI网络中占据关键位置的蛋白质，可以为生物标志物的筛选提供重要的理论依据和技术支持。这些关键蛋白往往在细胞功能或信号传导过程中发挥着核心调控作用，因此它们对于理解生物过程和疾病机理具有重要价值。</p>
+<h3 id="_50"><span id="20250930211546-6m9m7r0" style="display: none;"></span>目标</h3>
+<p>构建目标基因家族的蛋白质互作网络，并通过可视化分析识别其中的关键互作关系和核心蛋白。</p>
+<p><img alt="Figure 8" src="https://images.jq666.top/cookbook/2025/Figure%208-20250930211339-5kd51zs.png" /></p>
+<h3 id="_51"><span id="20250930212242-1p59fxz" style="display: none;"></span>材料与软件</h3>
+<ul>
+<li>基因家族的蛋白质序列文件（fasta格式）</li>
+<li><a href="">STRING 数据库</a>（用于预测蛋白质相互作用）</li>
+<li>R及ggraph包</li>
+</ul>
+<h3 id="_52"><span id="20250930212242-3467mse" style="display: none;"></span>主要步骤</h3>
+<ul>
+<li>获取蛋白列表</li>
+<li>在STRING数据库中进行预测</li>
+<li>导出网络文件</li>
+<li>R进行绘图</li>
+<li>分析网络拓扑结构</li>
+</ul>
+<h4 id="_53">获取蛋白列表</h4>
+<p>整理出我们在第一步“识别并找出基因家族的基因”中鉴定出的所有蛋白质的ID列表或其fasta序列。</p>
+<h4 id="string">在STRING数据库中进行预测</h4>
+<p>访问STRING官网，将我们的蛋白质序列粘贴到“Multiple proteins”的输入框中或是直接上传序列文件。选择一个参考物种，然后点击“Search”。</p>
+<p><img alt="image" src="https://images.jq666.top/cookbook/2025/image-20251008104105-y15tlvb.png" /></p>
+<p>STRING预测的原理可能是对蛋白质进行比对，如果发现数据库有相似性高的蛋白质，则参考已有的数据完成预测。STRING会整合来自实验数据、文本挖掘、共表达分析等多种来源的证据，返回一个预测的互作网络图。string输出的图中的连线有不同的颜色，代表不同的证据来源；连线的粗细代表了相互作用的置信度得分（confidence score）。</p>
+<h4 id="_54">导出网络文件</h4>
+<p>为了进行更自由的美化和深入分析，我们需要将网络数据导出。在STRING的结果页面，切换到“Exports”标签页，下载TSV格式或cys.json格式的网络文件。TSV文件包含了互作的蛋白对和置信度得分，格式简单，通用性强。</p>
+<h4 id="_55">绘制网络图并分析</h4>
+<p>R中的ggraph包可以完成这个任务，具体使用需要看文档。STRING数据库也有一个官方的软件cytospace，也可以完成绘制。</p>
+<h3 id="_56"><span id="20250930211603-p6u8do7" style="display: none;"></span>推荐阅读</h3>
+<blockquote>
+<p>要真正搞懂网络图，恐怕还要学点图论，但是我不会。</p>
+</blockquote>
+<p>‍</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
