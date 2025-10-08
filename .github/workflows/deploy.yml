@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install mkdocs
-          pip install mkdocs-material # 示例：如果你用了 Material 主题
+          pip install mkdocs-material
 
       # 构建和部署
       - name: Deploy
